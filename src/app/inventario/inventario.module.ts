@@ -1,4 +1,4 @@
-//MODULOS CORE
+// MODULOS CORE
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -6,41 +6,44 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 */
 
-//MODULO PETICIONES HTTP
+// MODULO PETICIONES HTTP
 import { HttpModule } from '@angular/http';
-//MODULO DE ROUTING 
+// MODULO DE ROUTING
 import { InventarioRouting} from './inventario.routing';
 
-//AGREGAR COMPONENTES DEL MODULO...
+// AGREGAR COMPONENTES DEL MODULO...
 import { TestComponent } from './components/test/test.component';
 
-//GUARD 
+// GUARD
 import {InventarioGuard} from '../services/inventario.guard';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ModalCategoriasComponent } from './components/modal-categorias/modal-categorias.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule(
     {
-        declarations:[
-            //AGREGAR COMPONENTES DEL MODULO    
+        declarations: [
+            // AGREGAR COMPONENTES DEL MODULO
             TestComponent,
             CategoriasComponent,
-            ModalCategoriasComponent        
+            ModalCategoriasComponent,
+            MainComponent
         ],
-        imports:[
+        imports: [
             CommonModule,
-            //FormsModule,
+            // FormsModule,
             HttpModule,
             InventarioRouting
         ],
-        exports:[
+        exports: [
 
         ],
-        providers:[InventarioGuard]
+        providers: [InventarioGuard]
     }
 )
 
 export class InventarioModule
+
 {
 
 }

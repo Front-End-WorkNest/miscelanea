@@ -7,12 +7,13 @@ import { InventarioGuard } from '../services/inventario.guard';
 
 //AGREGAR COMPONENTES DEL MODULO...
 import { TestComponent } from './components/test/test.component';
+import { MainComponent } from './components/main/main.component';
 
 const inventarioRoutes: Routes = [
     {
         //RUTA PRINCIPAL
-        path: 'test', 
-        component: TestComponent, 
+        path: 'main', 
+        component: MainComponent, 
         canActivate:[InventarioGuard],
         //SUBRUTAS
         children: [
