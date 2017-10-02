@@ -3,12 +3,11 @@ import { Producto } from '../../../models/producto';
 import { ProductoService } from '../../../services/productos.service';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css'],
+  selector: 'app-productos',
+  templateUrl: './productos.component.html',
   providers: [ProductoService]
 })
-export class TestComponent implements OnInit {
+export class ProductosComponent implements OnInit {
 
   public producto: Producto;
   public productos: Producto[];
@@ -20,6 +19,20 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._productosService.getProductos().subscribe(
+      result => {
+        console.log('Productos cargados');
+        this.productos = result;
+        console.log(JSON.stringify(result));
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  refresh() {
+    console.log('Refresh');
     this._productosService.getProductos().subscribe(
       result => {
         console.log('Productos cargados');

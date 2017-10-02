@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.menu-nav {
+    background: #95bcf2;
+    height: 100vh;
+}
+
+li a {
+    display: block;
+}
+
+body {
+    font-family: "Calibri Light";
+}
+
+.inicio {
+    text-align: center;
+    height: 500px;
+}

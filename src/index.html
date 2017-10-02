@@ -6,6 +6,7 @@
     <title>Miscelanea</title>
     <base href="/">
 
+    <!--Se importan las librerias necesarias para el correcto funcionamiento-->
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 
     <script src="assets/js/jquery-3.2.1.min.js"></script>
@@ -13,17 +14,42 @@
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/jspdf.min.js"></script>
 
-    <link rel="stylesheet" href="./assets/styles.css" />
-    <link rel="stylesheet" href="./assets/icons/css/font-awesome.css" />
-    <link rel="stylesheet" href="./assets/icons/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/icons/css/font-awesome.css" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
-    <app-root> Cargando ...</app-root>
+    <!--Barra de titulo-->
+    <nav class="navbar navbar-dark bg-secondary">
+        <span class="h1" style="color:white" class="navbar-brand mb-0">La Miscelanea</span>
+    </nav>
 
+
+    <!--Nav izquierdo -->
+    <div class="row">
+        <div class="col-sm-3 menu-nav">
+            <ul class="nav flex-column" role="tablist">
+                <li class="nav-item row">
+                    <i class="fa fa-cart-arrow-down fa-2x ml-4 " aria-hidden="true"></i>
+                    <a class="nav-link" [routerLink]="['/ventas']" [routerLinkActive]="['active']">Ventas</a>
+                </li>
+                <li class="nav-item row">
+                    <i class="fa fa-list fa-2x ml-4"></i>
+                    <a class="nav-link" [routerLink]="['/inventario']" [routerLinkActive]="['active']">Inventario</a>
+                </li>
+                <li class="nav-item row">
+                    <i class="fa fa-file-text-o fa-2x ml-4"></i>
+                    <a class="nav-link" [routerLink]="['/reportes']" [routerLinkActive]="['active']">Reportes</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <app-root></app-root>
+            
+        </div>
+    </div>
 </body>
 
 </html>

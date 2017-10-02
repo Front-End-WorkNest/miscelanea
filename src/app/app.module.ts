@@ -4,24 +4,25 @@ import { FormsModule } from '@angular/forms';
 
 import { routing, appRoutingProviders } from './app.routing';
 
-//COMPONENTES
+// COMPONENTES
 import { AppComponent } from './app.component';
 import { ProductoModalComponent } from './modales/productos.modalcomponent';
 
-//MODULO INVENTARIO
+// MODULO INVENTARIO
 import { InventarioModule } from './inventario/inventario.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    ProductoModalComponent
+    ProductoModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     InventarioModule,
     routing,
-    //MODULO INVENTARIO
+    // MODULO INVENTARIO
     InventarioModule
 
   ],

@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-//GUARD 
+// GUARD
 import { InventarioGuard } from '../services/inventario.guard';
 
 
-//AGREGAR COMPONENTES DEL MODULO...
+// AGREGAR COMPONENTES DEL MODULO...
 import { TestComponent } from './components/test/test.component';
 import { MainComponent } from './components/main/main.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
 
 const inventarioRoutes: Routes = [
     {
-        //RUTA PRINCIPAL
-        path: 'main', 
-        component: MainComponent, 
-        canActivate:[InventarioGuard],
-        //SUBRUTAS
+        // RUTA PRINCIPAL
+        path: 'inventario',
+        component: MainComponent,
+        canActivate: [InventarioGuard],
+        // SUBRUTAS
         children: [
-           //{ path: 'otra_ruta':OtroComponente }
+           { path: '', component: ProductosComponent },
+           { path: 'productos', component: ProductosComponent },
+           { path: 'categorias', component: ProductosComponent }
         ]
     }
 

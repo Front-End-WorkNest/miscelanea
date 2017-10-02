@@ -1,0 +1,57 @@
+<div class="mt-5 mb-5">
+    <div class="row">
+      <div class="col-9">
+          <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
+            Nuevo</button>
+          
+          <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
+            Actualizar</button>
+      </div>
+        
+        <div class="col-3 d-flex flex-row-reverse">
+            <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </span>
+                <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar...">
+              </div>
+        </div>
+    </div>
+   
+  </div>
+  
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Código de Barras</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Cantidad</th>
+          <th>Precio Venta</th>
+          <th>Precio Compra</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <th scope="row">{{producto.codigoBarras}}</th>
+          <td>{{producto.nombre}}</td>
+          <td>{{producto.descripcion}}</td>
+          <td>{{producto.categoria}}</td>
+          <td>{{producto.cantidad}}</td>
+          <td>{{producto.precioVenta}}</td>
+          <td>{{producto.precioCompra}}</td>
+          <td><button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+            
+            <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <app-modal-categorias></app-modal-categorias>
+  
+  

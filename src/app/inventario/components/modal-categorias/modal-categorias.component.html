@@ -1,41 +1,82 @@
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-<form #formRegisterCat="ngForm" id="formEvent" name="formRegister" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="recipient-name" class="form-control-label">Nombre de categoria:</label>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">iconito</span>
-      <input type="text" class="form-control" placeholder="Nombre" aria-label="nombrecat" aria-describedby="basic-addon1" #name="ngModel" [(ngModel)]="user.name" name ="name" id="validationServer01" required minlength="4" maxlength="50" pattern="^[a-z A-Z 0-9]+$">
-    </div>
-    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="name.touched && !name.valid">
-      <span *ngIf="name.errors.required">
-           El nombre es requerido
-      </span>
-      <span *ngIf="name.errors.minlength">
-        Pocos caracteres
-      </span>
-      <p *ngIf="name.errors.pattern">
-        No esta permitido los caracteres
-      </p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="message-text" class="form-control-label">Descripcion de categoria:</label>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">iconito</span>
-      <input type="text" class="form-control" placeholder="Descripcion" aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-  </div>
-</form>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-<button type="submit" class="btn btn-primary" [disabled]="!formRegisterCat.form.valid" >Agregar</button>
-</div>
-</div>
-</div>
-</div>
-
+    <!-- Modal -->
+    
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                    <p class="my-0">
+                            <label>Código de Barras</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0 my-0">
+                            <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
+                            <input class="form-inline" type="text" name="codigo" class="form-control" placeholder="15023G4562733" minlength="13" maxlength="13" required pattern="^[0-9]+$"/>
+                        </div>
+                        <!--#email="ngModel" [(ngModel)]=""-->
+                        <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
+                        <br />
+                        <p class="my-0">
+                            <label>Nombre</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0 my-0">
+                            <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
+                            <input type="text" name="nommbre" class="form-control" placeholder="CHIPS FUEGO" minlength="1" maxlength="100" required />
+                        </div>
+                        <br />
+                        <p class="my-0">
+                            <label>Descripción</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0  my-0">
+                            <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" placeholder="Descripción breve del producto" minlength="1" maxlength="150" required></textarea>
+                        </div>
+                        <br />
+                        <p class="my-0">
+                            <label>Cantidad</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0  my-0">
+                            <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
+                            <input type="NUMBER" name="cantidad" class="form-control" placeholder="500" required />
+                        </div>
+        
+                        <br />
+                        <p class="my-0">
+                            <label>Precio de Compra</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-1  my-0">
+                            <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
+                            <input type="number" name="cantidad" class="form-control" placeholder="29.99" step=0.01 required />
+                        </div>
+                        <br />
+                        <p class="my-0">
+                            <label>Precio de Venta</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0 my-0">
+                            <div class="input-group-addon fa fa-usd"></div>
+        
+                            <input type="number" name="cantidad" class="form-control" placeholder="29.99" step=0.01 required />
+                        </div>
+                        <br />
+                        <p class="my-0">
+                            <label>Categoria</label>
+                        </p>
+                        <div class="input-group mb-2 mb-sm-0  my-0">
+                            <select class="form-control" name="cantidad" placeholder="categorias" type="number" minlength="1" maxlength="4" required> 
+                                    <option>1</option>
+                                   
+                            </select>
+                        </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>

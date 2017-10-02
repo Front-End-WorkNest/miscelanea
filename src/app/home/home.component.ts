@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { NgForm } from '@angular/forms';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'app-home',
+  templateUrl: './home.component.html'
 })
-export class AppComponent {
+export class HomeComponent {
   title = 'app';
 
   constructor(

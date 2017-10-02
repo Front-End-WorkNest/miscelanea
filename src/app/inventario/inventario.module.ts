@@ -19,6 +19,9 @@ import {InventarioGuard} from '../services/inventario.guard';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ModalCategoriasComponent } from './components/modal-categorias/modal-categorias.component';
 import { MainComponent } from './components/main/main.component';
+import { ModalProductoComponent } from './modal-producto/modal-producto.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { ModalProductosComponent } from './components/modal-productos/modal-productos.component';
 
 @NgModule(
     {
@@ -27,7 +30,10 @@ import { MainComponent } from './components/main/main.component';
             TestComponent,
             CategoriasComponent,
             ModalCategoriasComponent,
-            MainComponent
+            MainComponent,
+            ModalProductoComponent,
+            ProductosComponent,
+            ModalProductosComponent
         ],
         imports: [
             CommonModule,
