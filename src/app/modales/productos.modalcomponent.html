@@ -1,0 +1,60 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Agregar Productos
+  </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <!--
+            <div class="modal-body">
+                <small><strong>Es bueno verte por aquí</strong> </small><br /> Esta sección es de Administración!
+            </div>-->
+            <div class="col-xl-12 col-lg-12 .col-xs-12 .col-sm-12 container-fluid h-100">
+                <p class="my-0">
+                    <label>Código de Barrras</label>
+                </p>
+                <p class="form-inline my-0">
+                    <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
+                    <input class="form-inline" type="text" name="codigo" class="form-control" required />
+                </p>
+                <!--#email="ngModel" [(ngModel)]=""-->
+                <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
+
+                <p class="my-0">
+                    <label>Nombre</label>
+                </p>
+                <p class="form-inline my-0">
+                    <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
+                    <input type="text" name="codigo" class="form-control" required />
+                    <!--#email="ngModel" [(ngModel)]=""-->
+                    <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
+                </p>
+                <p class="my-0">
+                    <label>Descripción</label>
+                    <input type="text" name="codigo" class="form-control" required />
+                    <!--#email="ngModel" [(ngModel)]=""-->
+                    <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
+                </p>
+                <p class="my-0">
+                    <label>Cantidad</label>
+                    <input type="text" name="codigo" class="form-control" required />
+                    <!--#email="ngModel" [(ngModel)]=""-->
+                    <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
