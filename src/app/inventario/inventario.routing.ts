@@ -19,9 +19,9 @@ const inventarioRoutes: Routes = [
         canActivate: [InventarioGuard],
         // SUBRUTAS
         children: [
-           { path: '', component: ProductosComponent },
+           { path: '', redirectTo: 'productos' , pathMatch: 'full' },
            { path: 'productos', component: ProductosComponent },
-           { path: 'categorias', component: ProductosComponent }
+           { path: 'categorias', component: CategoriasComponent }
         ]
     }
 

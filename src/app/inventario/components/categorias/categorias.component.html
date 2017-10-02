@@ -1,0 +1,109 @@
+<div class="mt-5 mb-5">
+    <div class="row">
+      <div class="col-9">
+          <button type="button" data-toggle="modal" data-target="#exampleModalC" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
+            Nuevo</button>
+          
+          <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
+            Actualizar</button>
+      </div>
+        
+        <div class="col-3 d-flex flex-row-reverse">
+            <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </span>
+                <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar...">
+              </div>
+        </div>
+    </div>
+   
+  </div>
+  <div class="alert alert-success" role="alert">
+    Se agregó correctamente
+  </div>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categoria of categorias">
+          <th scope="row">{{categoria.id}}</th>
+          <td>{{categoria.nombre}}</td>
+          <td>{{categoria.descripcion}}</td>
+          <td><button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+            
+            <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Modal Categorias -->
+    <div class="modal fade" id="exampleModalC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Categoría</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #formCategorias="ngForm" id="formCategorias" name="formCategorias">
+                <div class="form-group">
+                  <label for="recipient-name" class="form-control-label">Nombre:</label>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                    <input type="text" #nombre="ngModel" [(ngModel)] = "categoria.nombre" name="nombre" class="form-control" placeholder="Nombre de la categoría" aria-label="Categoría" aria-describedby="basic-addon1" required minlength="4" maxlength="100" >
+                  </div>
+                  <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
+                    <span *ngIf="nombre.errors.required">
+                         El nombre es requerido
+                    </span>
+                    <span *ngIf="nombre.errors.minlength">
+                      El mínimo de caracteres para este campo es 4
+                    </span>
+                    <p *ngIf="nombre.errors.pattern">
+                      No esta permitido los caracteres
+                    </p>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="form-control-label">Descripción:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                      <textarea #descripcion="ngModel" [(ngModel)] = "categoria.descripcion" name="descripcion" class="form-control" id="message-text" required minlength="10" maxlength="150"></textarea>
+                    </div>
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.touched && !descripcion.valid">
+                        <span *ngIf="descripcion.errors.required">
+                             La descripción es requerida
+                        </span>
+                        <span *ngIf="descripcion.errors.minlength">
+                          El mínimo de caracteres para este campo es 10
+                        </span>
+                        <p *ngIf="descripcion.errors.pattern">
+                          No esta permitido los caracteres
+                        </p>
+                    </div>
+                  </div>
+                  <div class="alert alert-danger" role="alert">
+                    Error la categoría ya existe
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" [disabled]="!formCategorias.form.valid" (click)="onSubmit()">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  

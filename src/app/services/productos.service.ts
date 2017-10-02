@@ -26,4 +26,5 @@ export class ProductoService {
         return this._http.get(this.url + 'producto/leer')
                          .map((res: Response) => res.json());
       }
+
 }

@@ -28,28 +28,8 @@
 
 
     <!--Nav izquierdo -->
-    <div class="row">
-        <div class="col-sm-3 menu-nav">
-            <ul class="nav flex-column" role="tablist">
-                <li class="nav-item row">
-                    <i class="fa fa-cart-arrow-down fa-2x ml-4 " aria-hidden="true"></i>
-                    <a class="nav-link" [routerLink]="['/ventas']" [routerLinkActive]="['active']">Ventas</a>
-                </li>
-                <li class="nav-item row">
-                    <i class="fa fa-list fa-2x ml-4"></i>
-                    <a class="nav-link" [routerLink]="['/inventario']" [routerLinkActive]="['active']">Inventario</a>
-                </li>
-                <li class="nav-item row">
-                    <i class="fa fa-file-text-o fa-2x ml-4"></i>
-                    <a class="nav-link" [routerLink]="['/reportes']" [routerLinkActive]="['active']">Reportes</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-9">
-            <app-root></app-root>
-            
-        </div>
-    </div>
+
+    <app-root></app-root>
 </body>
 
 </html>

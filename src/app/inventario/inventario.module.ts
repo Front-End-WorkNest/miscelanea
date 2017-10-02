@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 // MODULO PETICIONES HTTP
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 // MODULO DE ROUTING
 import { InventarioRouting} from './inventario.routing';
 
@@ -37,7 +38,7 @@ import { ModalProductosComponent } from './components/modal-productos/modal-prod
         ],
         imports: [
             CommonModule,
-            // FormsModule,
+            FormsModule,
             HttpModule,
             InventarioRouting
         ],

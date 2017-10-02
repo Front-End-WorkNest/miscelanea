@@ -15,21 +15,10 @@ export class TestComponent implements OnInit {
   constructor(
     private _productosService: ProductoService
   ) {
-    this.producto = new Producto('', '', '', 0, 0, 0, '');
     this.productos = new Array();
   }
 
   ngOnInit() {
-    this._productosService.getProductos().subscribe(
-      result => {
-        console.log('Productos cargados');
-        this.productos = result;
-        console.log(JSON.stringify(result));
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 
 }

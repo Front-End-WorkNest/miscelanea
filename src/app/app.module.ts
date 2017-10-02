@@ -22,8 +22,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     InventarioModule,
     routing,
-    // MODULO INVENTARIO
-    InventarioModule
+    FormsModule
 
   ],
   providers: [appRoutingProviders],

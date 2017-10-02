@@ -22,27 +22,8 @@ export class CategoriasService {
         return this._http.post(this.url + 'categoria/insertar/', params, {headers: headers})
                          .map(res => res.json());
       }
-      agregarProductos(productoo) {
-        const params = JSON.stringify(productoo);
-        console.log(params);
-        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.post(this.url + 'producto/insertar/', params, {headers: headers})
-                         .map(res => res.json());
-      }
       getCategorias() {
         return this._http.get(this.url + 'categoria/leer/')
-                         .map((res: Response) => res.json())
-                     .subscribe(data => {
-                            this.data = data;
-                            console.log(this.data);
-                    });
-      }
-      getProductos() {
-        return this._http.get(this.url + 'categoria/leer/')
-                         .map((res: Response) => res.json())
-                     .subscribe(data => {
-                            this.data = data;
-                            console.log(this.data);
-                    });
+                         .map((res: Response) => res.json());
       }
 }

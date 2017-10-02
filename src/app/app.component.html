@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<div class="row">
+    <div class="col-sm-3 menu-nav ">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+            <a class="nav-link fa fa-cart-arrow-down" [routerLink]="['/ventas']" [routerLinkActive]="['active']" id="v-ventas" data-toggle="pill" href="#v-pil-ventas" role="tab" aria-controls="v-ventas" aria-expanded="true"> Ventas</a>
+            <a class="nav-link fa fa-list" [routerLink]="['/inventario']" [routerLinkActive]="['active']" id="v-inventario" data-toggle="pill" href="#v-pil-inventario" role="tab" aria-controls="v-inventario" aria-expanded="true"> Inventario</a>
+            <a class="nav-link fa fa-file-text-o" [routerLink]="['/reporte']" [routerLinkActive]="['active']" id="v-reportes" data-toggle="pill" href="#v-pil-reportes" role="tab" aria-controls="v-reportes" aria-expanded="true"> Reportes</a>
+
+
+        </div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pil-ventas"></div>
+            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pil-inventario"></div>
+            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pil-reportes"></div>
+
+        </div>
+
+    </div>
+    <div class="col-sm-9">
+        <div class="col justify-content-center ">
+
+            <router-outlet></router-outlet>
+
+        </div>
+    </div>
+</div>
