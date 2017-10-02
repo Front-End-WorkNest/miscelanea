@@ -2,9 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { HomeComponent } from './productos/home.component'
+import { routing, appRoutingProviders } from './app.routing';
+
+//COMPONENTES
 import { AppComponent } from './app.component';
 import { ProductoModalComponent } from './modales/productos.modalcomponent';
+
+//MODULO INVENTARIO
+import { InventarioModule } from './inventario/inventario.module';
 
 @NgModule({
   declarations: [
@@ -14,9 +19,13 @@ import { ProductoModalComponent } from './modales/productos.modalcomponent';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    InventarioModule,
+    routing,
+    //MODULO INVENTARIO
+    InventarioModule
+
   ],
-  providers: [],
+  providers: [appRoutingProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
