@@ -1,0 +1,41 @@
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<form #formRegisterCat="ngForm" id="formEvent" name="formRegister" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="recipient-name" class="form-control-label">Nombre de categoria:</label>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">iconito</span>
+      <input type="text" class="form-control" placeholder="Nombre" aria-label="nombrecat" aria-describedby="basic-addon1" #name="ngModel" [(ngModel)]="user.name" name ="name" id="validationServer01" required minlength="4" maxlength="50" pattern="^[a-z A-Z 0-9]+$">
+    </div>
+    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="name.touched && !name.valid">
+      <span *ngIf="name.errors.required">
+           El nombre es requerido
+      </span>
+      <span *ngIf="name.errors.minlength">
+        Pocos caracteres
+      </span>
+      <p *ngIf="name.errors.pattern">
+        No esta permitido los caracteres
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="message-text" class="form-control-label">Descripcion de categoria:</label>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">iconito</span>
+      <input type="text" class="form-control" placeholder="Descripcion" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </div>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+<button type="submit" class="btn btn-primary" [disabled]="!formRegisterCat.form.valid" >Agregar</button>
+</div>
+</div>
+</div>
+</div>
+
