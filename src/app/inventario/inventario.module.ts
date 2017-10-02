@@ -16,12 +16,14 @@ import { TestComponent } from './components/test/test.component';
 
 //GUARD 
 import {InventarioGuard} from '../services/inventario.guard';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule(
     {
         declarations:[
             //AGREGAR COMPONENTES DEL MODULO    
-            TestComponent        
+            TestComponent,
+            MainComponent        
         ],
         imports:[
             CommonModule,

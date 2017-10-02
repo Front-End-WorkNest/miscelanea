@@ -1,0 +1,35 @@
+[33mcommit b4edef95f6b1ea5def4c41c678e94ce6e08a603f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: jorge <13041423@itdurango.edu.mx>
+Date:   Mon Oct 2 11:35:56 2017 -0500
+
+    modulo inventario
+
+[33mcommit 7309f9ac94426656d442fb3169d57e62cec36b33[m
+Author: Freddy <fads2359@gmail.com>
+Date:   Mon Oct 2 10:19:42 2017 -0500
+
+    Nuevo3
+
+[33mcommit 9ea6775f76259aeb2582b395fbad8b12d31debf7[m
+Author: Freddy <fads2359@gmail.com>
+Date:   Mon Oct 2 10:17:15 2017 -0500
+
+    Nuevo2
+
+[33mcommit c0afb33715df9fe3302d068251cc10c2fd6356ff[m
+Author: Freddy <fads2359@gmail.com>
+Date:   Mon Oct 2 10:06:15 2017 -0500
+
+    Nuevo
+
+[33mcommit 0bb25c20d381b80bb1ef39b2dcf890025f48ebb6[m
+Author: Freddy <fads2359@gmail.com>
+Date:   Mon Oct 2 09:19:37 2017 -0500
+
+    Inicio
+
+[33mcommit 676a6528673dc6c1732ab579a85603d564032c61[m
+Author: Angular CLI <angular-cli@angular.io>
+Date:   Mon Oct 2 08:26:43 2017 -0500
+
+    chore: initial commit from @angular/cli

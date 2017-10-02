@@ -12,7 +12,7 @@ export class InventarioGuard implements CanActivate {
     ) 
     { 
         //POR DEFAULT ESTARA ACTIVADO EL GUARD
-        this.isProtected = false;//true;
+        this.isProtected = true;//false
     }
 
     //GUAR DE PRUEBA [**CAMBIAR POR COMPROBACION DE INICIO DE SESION**]
