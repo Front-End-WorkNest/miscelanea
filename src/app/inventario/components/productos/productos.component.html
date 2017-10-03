@@ -1,13 +1,11 @@
 <div class="mt-5 mb-5">
     <div class="row">
-      <div class="col-9">
-          <button type="button" data-toggle="modal" data-target="#exampleModalP" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
+        <div class="col-9">
+            <button type="button" data-toggle="modal" data-target="#exampleModalP" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo</button>
-          
-          <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
+            <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
             Actualizar</button>
-      </div>
-        
+        </div>
         <div class="col-3 d-flex flex-row-reverse">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -15,154 +13,209 @@
                   </button>
                 </span>
                 <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar...">
-              </div>
+            </div>
         </div>
     </div>
-   
-  </div>
-  
-  <table class="table table-striped">
-      <thead>
+    <!--MENSAJE DE SUCCESS-->
+    <div *ngIf="status=='bien'" class="alert alert-success modal1 mt-3" role="alert">
+        El producto ha sido registrado!
+    </div>
+</div>
+<!--TABLA PRINCIPAL-->
+<table class="table table-striped">
+    <thead>
         <tr>
-          <th>Código de Barras</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Categoría</th>
-          <th>Cantidad</th>
-          <th>Precio Venta</th>
-          <th>Precio Compra</th>
-          <th>Acciones</th>
+            <th>Código de Barras</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Cantidad</th>
+            <th>Precio Venta</th>
+            <th>Precio Compra</th>
+            <th>Acciones</th>
         </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
         <tr *ngFor="let producto of productos">
-          <th scope="row">{{producto.codigoBarras}}</th>
-          <td>{{producto.nombre}}</td>
-          <td>{{producto.descripcion}}</td>
-          <td>{{producto.categoria}}</td>
-          <td>{{producto.cantidad}}</td>
-          <td>{{producto.precioVenta}}</td>
-          <td>{{producto.precioCompra}}</td>
-          <td><button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <th scope="row">{{producto.codigoBarras}}</th>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.descripcion}}</td>
+            <td>{{producto.categoria}}</td>
+            <td>{{producto.cantidad}}</td>
+            <td>{{producto.precioVenta}}</td>
+            <td>{{producto.precioCompra}}</td>
+            <td><button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
-            
-            <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
             </button></td>
         </tr>
-      </tbody>
-    </table>
-  
-    <!-- Modal Agregar producto -->
-  
-  <!-- Modal -->
-
+    </tbody>
+</table>
+<!-- Modal Agregar producto -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModalP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-              <form #formRegistroPro="ngForm" (ngSubmit)="onSubmit()">
-                  <p class="my-0">
-                      <label>Código de Barras</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0 my-0">
-                      <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
-                      <input class="form-inline" type="text" name="codigoBarras" class="form-control" placeholder="15023G4562733" minlength="13" maxlength="13" #c_barras="ngModel" [(ngModel)]="producto.codigoBarras" required pattern="^[0-9]+$" />
-                  </div>
-                  <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="c_barras.touched && !c_barras.valid">
-                    <span *ngIf="c_barras.errors.required">
-                         El código de barras es requerido
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <form #formRegistroPro="ngForm" (ngSubmit)="onSubmit()">
+                    <!--MENSAJE DE ERROR!!!-->
+                    <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                        Error: Algo salió mal, el producto no ha sido agregado.
+                    </div>
+                    <!--TERMINA MENSAJE DE ERROR!!!-->
+                    <!--CÓDIGO DE BARRAS-->
+                    <p class="my-0">
+                        <label>Código de Barras</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0 my-0">
+                        <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
+                        <input class="form-inline" type="text" name="codigoBarras" class="form-control" placeholder="1111111111111" minlength="13" maxlength="13" #c_barras="ngModel" [(ngModel)]="producto.codigoBarras" required pattern="^[0-9]+$" />
+                    </div>
+                    <!--VALIDACIÓN DE CÓDIGO DE BARRAS-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="c_barras.touched && !c_barras.valid">
+                        <span *ngIf="c_barras.errors.required">
+                         El código de barras es requerido.
                     </span>
-                    <span *ngIf="c_barras.errors.minlength">
-                      El código de barras es de 13 caracteres
+                        <span *ngIf="c_barras.errors.minlength">
+                      El código de barras deberá de ser de 13 caracteres.
                     </span>
-                    <br>
-                    <span *ngIf="c_barras.errors.pattern">
-                            - Solo esta permitido valores del 0 - 9
+                        <br>
+                        <span *ngIf="c_barras.errors.pattern">
+                            - Solo está permitido valores del 0 - 9.
                     </span>
-                </div>
-                  <!--#email="ngModel" [(ngModel)]=""-->
-                  <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio!</span>-->
-                  <br />
-                  <p class="my-0">
-                      <label>Nombre</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0 my-0">
-                      <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
-                      <input type="text" name="nombre" class="form-control" placeholder="CHIPS FUEGO" minlength="2" maxlength="100" #nombre_prod="ngModel" [(ngModel)]="producto.nombre" required />
-                  </div>
-                  <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre_prod.touched && !nombre_prod.valid">
-                    <span *ngIf="nombre_prod.errors.required">
+                    </div>
+                    <br />
+                    <!--TERMINA VALIDACIÓN DE CÓDIGO DE BARRAS-->
+                    <!--TERMINA CÓDIGO DE BARRAS-->
+                    <!--NOMBRE-->
+                    <p class="my-0">
+                        <label>Nombre</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0 my-0">
+                        <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
+                        <input type="text" name="nombre" class="form-control" placeholder="CHIPS FUEGO" minlength="2" maxlength="100" #nombre_prod="ngModel" [(ngModel)]="producto.nombre" required />
+                    </div>
+                    <!--COMIENZA VALIDACIÓN DE NOMBRE-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre_prod.touched && !nombre_prod.valid">
+                        <a>{{changecolor()}}</a>
+                        <span *ngIf="nombre_prod.errors.required">
                          El nombre es requerido
                     </span>
-                    <span *ngIf="nombre_prod.errors.minlength">
+                        <span *ngIf="nombre_prod.errors.minlength">
                       El tamaño mínimo del nombre es de 2 caracteres
                     </span>
-                    
-                   
-            
-                </div>
-                  <br />
-                  <p class="my-0">
-                      <label>Descripción</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0  my-0">
-                      <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" name="descripcion" rows="3" type="text" placeholder="Descripción breve del producto" minlength="1" maxlength="150"
-                      #descripcion_prod="ngModel" [(ngModel)]="producto.descripcion" required></textarea>
-                  </div>
-                  <br />
-                  <p class="my-0">
-                      <label>Cantidad</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0  my-0">
-                      <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
-                      <input type="number" name="cantidad" class="form-control" placeholder="500" #cantidad="ngModel" [(ngModel)]="producto.cantidad" required />
-                  </div>
+                    </div>
+                    <br />
+                    <!--TERMINA VALIDACIÓN DE NOMBRE-->
+                    <!--TERMINA NOMBRE-->
+                    <!--DESCRIPCIÓN-->
+                    <p class="my-0">
+                        <label>Descripción</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0  my-0">
+                        <i class="fa fa-pencil input-group-addon" aria-hidden="true"></i>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="descripcion" rows="3" type="text" placeholder="Descripción breve del producto" minlength="1" maxlength="150" #descripcion_prod="ngModel" [(ngModel)]="producto.descripcion" required></textarea>
+                    </div>
+                    <!--VALIDACIÓN DE DESCRIPCIÓN-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion_prod.touched && !descripcion_prod.valid">
+                        <span *ngIf="descripcion_prod.errors.required">
+                                La descripción del producto, es requerida.
+                        </span>
+                    </div>
+                    <!--TERMINA VALIDACIÓN DE DESCRIPCIÓN-->
+                    <!--TERMINA DESCRIPCIÓN-->
+                    <!--CANTIDAD-->
+                    <br />
+                    <p class="my-0">
+                        <label>Cantidad</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0  my-0">
+                        <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
+                        <input type="number" value="null" name="cantidad" class="form-control" placeholder="500" #cantidad="ngModel" [(ngModel)]="producto.cantidad" required pattern="[0-9]+$" />
+                    </div>
+                    <!--VALIDACIÓN DE CANTIDAD-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.touched && !cantidad.valid">
+                        <span *ngIf="cantidad.errors.required">
+                                     Este campo es requerido.
+                                </span>
+                        <span *ngIf="cantidad.errors.pattern">
+                                    Sólo puedes ingresar números enteros.
+                        </span>
+                    </div>
+                    <br />
+                    <!-- TERMINA VALIDACIÓN DE CANTIDAD-->
+                    <!--PRECIO DE COMPRA-->
+                    <p class="my-0">
+                        <label>Precio de Compra</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-1  my-0">
+                        <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
+                        <input type="number" name="precio_compra" class="form-control" placeholder="29.99" step=0.10 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required pattern="[0-9]+.[0-9][0-9]" />
+                    </div>
+                    <!--VALIDACIÓN DE PRECIO COMPRA-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_compra.touched && !precio_compra.valid">
+                        <span *ngIf="precio_compra.errors.required">
+                                 El precio de compra es requerido
+                            </span>
+                        <span *ngIf="precio_compra.errors.pattern">
+                                El formato de precio de COMPRA deberá tener el siguiente formato: 99.99
+                            </span>
+                    </div>
+                    <!-- TERMINA VALIDACIÓN DE PRECIO COMPRA-->
+                    <!--TERMINA PC-->
+                    <!--PV-->
+                    <br />
+                    <p class="my-0">
+                        <label>Precio de Venta</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0 my-0">
+                        <div class="input-group-addon fa fa-usd"></div>
+                        <input type="number" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required pattern="[0-9]+.[0-9][0-9]" />
+                    </div>
+                    <!--VALIDACIÓN DE PRECIO VENTA-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_venta.touched && !precio_venta.valid">
+                        <span *ngIf="precio_venta.errors.required">
+                                     El precio de venta es requerido
+                                </span>
+                        <span *ngIf="precio_venta.errors.pattern">
+                                    El formato de VENTA de compra deberá tener el siguiente formato: 99.99
+                                </span>
+                    </div>
+                    <br />
+                    <!--TERMINA VALIDACIÓN DE PRECIO VENTA-->
+                    <!--TERMINA PV-->
 
-                  <br />
-                  <p class="my-0">
-                      <label>Precio de Compra</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-1  my-0">
-                      <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
-                      <input type="number" name="precioCompra" class="form-control" placeholder="29.99" step=0.01 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required />
-                  </div>
-                  <br />
-                  <p class="my-0">
-                      <label>Precio de Venta</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0 my-0">
-                      <div class="input-group-addon fa fa-usd"></div>
+                    <!--CATEGORIA-->
 
-                      <input type="number" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required />
-                  </div>
-                  <br />
-                  <p class="my-0">
-                      <label>Categoria</label>
-                  </p>
-                  <div class="input-group mb-2 mb-sm-0  my-0">
-                      <select class="form-control" id="exampleFormControlSelect1" name="categoria" placeholder="categorias" type="text" minlength="1"
-                      maxlength="10" #nombre_cat="ngModel" [(ngModel)]="producto.categoria" required (change)="sacarCategoria($event.target.value)">
+                    <p class="my-0">
+                        <label>Categoria</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0  my-0">
+
+                        <select class="form-control" id="exampleFormControlSelect1" name="categoria" placeholder="categorias" type="text" minlength="1" maxlength="10" #nombre_cat="ngModel" [(ngModel)]="producto.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                        <option selected>Escoge una categoria...</option>
                         <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
                       </select>
 
-                  </div>
-                  <fieldset class="form-group">
-                      <div class="modal-footer">
-                          <button type="submit" class="btn btn-primary" [disabled]="!formRegistroPro.form.valid">Guardar</button>
-                          <!--[disabled]="!formRegistro.form.valid"-->
-                      </div>
-                  </fieldset>
-                  <p>{{getdatos()}}</p>
-              </form>
-          </div>
+                    </div>
+                    <fieldset class="form-group">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" [disabled]="!formRegistroPro.form.valid">Guardar</button>
+                            <!--[disabled]="!formRegistro.form.valid"-->
+                        </div>
+                    </fieldset>
+                    <!--TERMINA CATEGORIA-->
 
-      </div>
-  </div>
+                </form>
+            </div>
+        </div>
+        <!--Termina Modal AGREGA PRODUCTOS-->
+    </div>
 </div>

@@ -7,7 +7,7 @@ import { GLOBAL } from './global';
 import { Categoria } from '../models/categoria';
 
 @Injectable()
-export class CategoriasService {
+export class VentasService {
     public url: string;
     data: any = null;
     identity;
@@ -15,15 +15,26 @@ export class CategoriasService {
     constructor(private _http: Http) {
         this.url = GLOBAL.url;
     }
-      agregarCategoria(categoriaa) {
-        const params = JSON.stringify(categoriaa);
+      agregarVenta(ventaa) {
+        const params = JSON.stringify(ventaa);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.post('http://192.168.0.42:8080/' + 'categoria/insertar/', params, {headers: headers})
+        return this._http.post(this.url + 'ventaaaaaa/iiiiiiinsertar/', params, {headers: headers})
                          .map(res => res.json());
       }
-      getCategorias() {
-        return this._http.get(this.url + 'categoria/leer/')
+      getVenta() {
+        return this._http.get(this.url + 'ventaaa/leer')
                          .map((res: Response) => res.json());
+      
       }
+
+      getCantidad(codigoo){
+        const params = JSON.stringify(codigoo);
+        console.log(params);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url + 'ventaaaaaa/cantidaaad/', params, {headers: headers})
+                         .map(res => res.json());
+      }
+      
+
 }

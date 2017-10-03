@@ -6,6 +6,9 @@ import { ProductoService } from '../../../services/productos.service';
 import { CategoriasService } from '../../../services/categorias.service'; // Importamos el servicio de productos.
 
 import { Categoria } from '../../../models/categoria';
+declare var jquery:any;
+declare var $ :any;
+
 
 @Component({
   selector: 'app-productos',
@@ -14,8 +17,10 @@ import { Categoria } from '../../../models/categoria';
   providers: [ProductoService, CategoriasService]
 })
 export class ProductosComponent implements OnInit {
-  public producto: Producto; // Intanciamos el objeto de Models
-  public productos: Producto[]; // Intanciamos el objeto de Models
+  public producto: Producto; // Instanciamos el objeto de Models
+  public productos: Producto[]; // Instanciamos el objeto de Models
+
+
   public categoria: Categoria;
   public status: string;
   public categorias: Categoria[];
@@ -26,10 +31,11 @@ export class ProductosComponent implements OnInit {
     private _router: Router
   ) {
     this.categoria = new Categoria (0,"","");
-    this.producto = new Producto ("", "", "", 0, 0, 0, this.categoria);
+    this.producto = new Producto ("", "", "", 0, 0, 0, "");
     this.categorias = new Array();
   }
   ngOnInit() {
+
     this._productosService.getProductos().subscribe(
       result => {
         console.log('Productos cargados');
@@ -68,14 +74,25 @@ export class ProductosComponent implements OnInit {
   }
 
   onSubmit(){
-      console.log(this.producto);
-      console.log("holaaaaa");
-
-
+    //console.log("El arreglo de productos enviados es: ");
+    //console.log(JSON.stringify(this.producto));
+  
+    //this.productos.push(this.producto);
+    //console.log(this.productos);
+      
+//ESTO ENVIÁ LOS ADTOS DEL FORMULARIO AL SERVIDOR Y EVALUA SI ESTE LO HA RECIBIDO O NO
       this._productosService.agregarProductos(this.producto).subscribe(
           response => 
           {
+            console.log("Guardando EN TABLA DE MANERA LOCAL...");
             console.log(JSON.stringify(response));
+            //this.productosform = response; //Agrega productos a la tabla
+            this.status = 'bien';
+            //Almacena productos
+            this.productos.push(this.producto);
+            console.log(this.productos);
+            /**Cerramos el modal despúes de que se insertó correctamente... */
+            $('#exampleModalP').modal('hide');
           },
           error => {
               console.log(<any>error);
@@ -84,15 +101,8 @@ export class ProductosComponent implements OnInit {
           }
       );
   }
-  getdatos(): string {
-    return JSON.stringify(this.producto);
-  }
-
- /* sacarCategoria(cat: string) {
-      for (let categoria: Categoria in this.categorias) {
-          if  (categoria.nombre === cat) {
-              this.producto.categoria = categoria;
-          }
-      }
-  }*/
+ 
+   changecolor()
+   {}
+     
 }

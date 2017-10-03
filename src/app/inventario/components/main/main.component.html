@@ -1,16 +1,16 @@
 <div class="container mt-5">
-  <!--TAB DE NAVEGACION -->
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" [routerLink]="['productos']">Productos</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['categorias']">Categorías</a>
-    </li>
-  </ul>
+    <!--TAB DE NAVEGACION -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['productos']" [routerLinkActive]="['active']">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['categorias']" [routerLinkActive]="['active']">Categorías</a>
+        </li>
+    </ul>
 </div>
 
 <!--CONTENEDOR-->
 <div class="container menu-inventario">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>

@@ -1,3 +1,5 @@
+  <!-- Componente Principal --> 
+
 <div class="mt-5 mb-5">
     <div class="row">
       <div class="col-9">
@@ -7,7 +9,6 @@
           <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
             Actualizar</button>
       </div>
-        
         <div class="col-3 d-flex flex-row-reverse">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -18,11 +19,14 @@
               </div>
         </div>
     </div>
-   
+
+        <!-- ngIf con status relacionado a la base de datos -->
+
+    <div *ngIf="status=='success'" class="alert alert-success modal1 mt-3 " role="alert" >
+        La categoria ha sido registrada!
+    </div>
   </div>
-  <div class="alert alert-success" role="alert">
-    Se agregó correctamente
-  </div>
+
   <table class="table table-striped">
       <thead>
         <tr>
@@ -32,6 +36,9 @@
         </tr>
       </thead>
       <tbody>
+
+        <!-- Llenado de la tabla del componente categorias recorriendo el arreglo obtenido de la base de datos con ngFor -->
+
         <tr *ngFor="let categoria of categorias">
           <th scope="row">{{categoria.id}}</th>
           <td>{{categoria.nombre}}</td>
@@ -44,8 +51,11 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Termina Componente Principal --> 
   
-    <!-- Modal Categorias -->
+    <!-- Inicia El Modal Categorias -->
+
     <div class="modal fade" id="exampleModalC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -56,6 +66,9 @@
               </button>
             </div>
             <div class="modal-body">
+
+                <!-- Uso de NgModel con NgIf para la validacion de los campos -->
+
               <form #formCategorias="ngForm" id="formCategorias" name="formCategorias">
                 <div class="form-group">
                   <label for="recipient-name" class="form-control-label">Nombre:</label>
@@ -93,17 +106,22 @@
                         </p>
                     </div>
                   </div>
-                  <div class="alert alert-danger" role="alert">
-                    Error la categoría ya existe
-                  </div>
+                  <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                      Error la categoría ya existe, ingrese una categoria nueva.
+                        </div>
               </form>
             </div>
             <div class="modal-footer">
+
+                <!-- Uso de la validacion en el boton de agregar y metodo click que llama a un metodo en el TS -->
+
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" [disabled]="!formCategorias.form.valid" (click)="onSubmit()">Agregar</button>
+              <button type="button" class="btn btn-primary" [disabled]="!formCategorias.form.valid" (click)="onSubmit();">Agregar</button>
             </div>
           </div>
         </div>
       </div>
+
+    <!--Termina El Modal Categorias -->
   
   

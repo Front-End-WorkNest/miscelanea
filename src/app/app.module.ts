@@ -10,6 +10,7 @@ import { ProductoModalComponent } from './modales/productos.modalcomponent';
 
 // MODULO INVENTARIO
 import { InventarioModule } from './inventario/inventario.module';
+import {VentasModule} from './ventas/ventas.module';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     InventarioModule,
     routing,
-    FormsModule
+    FormsModule,
+    VentasModule
 
   ],
   providers: [appRoutingProviders],

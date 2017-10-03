@@ -1,0 +1,76 @@
+<!--AGREGAR PRODUCTO Y CANTIDAD-->
+<div class="container">
+    Producto: <input type="text" [(ngModel)]="producto.nombre"> Cantidad: <input type="number" [(ngModel)]="producto.cantidad">
+    <input type="button" value="agregar" (click)="pushProducto()">
+</div>
+
+<br>
+
+<!--ELEMENTOS AGREGADOS AL CARRITO-->
+<div class="container">
+    <div class="row">
+        <div class="col" id="formtest">
+            <table id="carrito" class="table">
+                <thead>
+                    <tr>
+                        <td>Producto</td>
+                        <td>Cantidad</td>
+                        <td>Operacion</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prod of carrito;let i=index">
+                        <td>{{prod[0]}}</td>
+                        <td>{{prod[1]}}</td>
+                        <!--td><input type="text" value='{{prod[1]}}' readonly></td-->
+                        <td>
+                            <input type="button" value="..." class="btn btn-primary" (click)="editar(true)">
+                            <input type="button" value="-" class="btn btn-danger" (click)="removeProducto(i)">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<table id='example'>
+    <tr>
+        <th>Hola</th>
+        <th>Hola</th>
+        <th>Hola</th>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td data-override="Score">Points</td>
+    </tr>
+    <tr>
+        <td>Jill</td>
+        <td>Smith</td>
+        <td data-override="disqualified">50</td>
+    </tr>
+    <tr>
+        <td>Eve</td>
+        <td>Jackson</td>
+        <td>94</td>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>80</td>
+    </tr>
+    <tr>
+        <td>Adam</td>
+        <td>Johnson</td>
+        <td>67</td>
+    </tr>
+</table>
+
+<!--EDITAR-->
+<div class="container">
+    <div *ngIf="editando">
+        Cantidad: <input type="number">
+        <input type="button" value="Aceptar" class="btn btn-primary" (click)="editar(false)">
+    </div>
+</div>

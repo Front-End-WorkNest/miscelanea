@@ -1,5 +1,4 @@
 import { Categoria } from './categoria';
-
 export class Producto
 {
     constructor(
@@ -9,9 +8,8 @@ export class Producto
         public cantidad:number,
         public precioCompra:number,
         public precioVenta:number,
-        public categoria: Categoria
+        public categoria: string
     )
     {
-
     }
 }

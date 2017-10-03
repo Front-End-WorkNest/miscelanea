@@ -19,7 +19,7 @@ export class ProductoService {
         const params = JSON.stringify(productoo);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.post(this.url + 'producto/insertar/', params, {headers: headers})
+        return this._http.post('http://192.168.0.42:8080/producto/insertar', params, {headers: headers})
                          .map(res => res.json());
       }
       getProductos() {

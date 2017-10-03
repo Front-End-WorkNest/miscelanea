@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
 .menu-nav {
     background: #95bcf2;
-    height: 100vh;
+    min-height: 92vh;
+    max-height: 100%;
 }
 
 li a {
