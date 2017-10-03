@@ -196,19 +196,39 @@ $(function() {
         doc.save('Test.pdf');
     }
 
+    function tableToJson(table) {
+        var data = [];
+        var headers = [];
+        for (var i = 0; i < table.rows[0].cells.length; i++) {
+            headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+        }
+        data.push(headers);
 
+        for (var i = 1; i < table.rows.lenght; i++) {
+            var tableRow = table.rows[i];
+            var rowData = [];
+            for (var j = 0; j < tableRow.cells.lenght; i++) {
+                rowData[headers[j]] = tableRow.cells[j].innerHTMLM
+            }
+            data.push(rowData);
+        }
+        return data;
+    }
     genPDF3 = function() {
-        var table = $('#example').tableToJSON();
+        //var table = tableToJson($('#example').get(0));
+
+        var table = $('#carrito').tableToJSON();
         var doc = new jsPDF('l', 'pt', 'letter', true);
         console.log(table);
+        doc.text(53, 55, 'Producto                           Cantidad');
         doc.cellInitialize();
         $.each(table, function(i, row) {
             $.each(row, function(j, cell) {
-                if (j == "Producto" | j == 1) {
-                    doc.cell(1, 10, 190, 20, cell, i);
+                if (j == "Operacion" | j == 1) {
+                    // doc.cell(1, 10, 190, 20, cell, i);
                 } else {
-                    doc.cell(1, 10, 90, 20, cell, i);
-                }
+                    doc.cell(35, 66, 190, 28, cell, i);
+                } 
             });
         });
 

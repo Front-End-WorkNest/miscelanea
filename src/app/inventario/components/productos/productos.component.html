@@ -157,7 +157,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-1  my-0">
                         <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
-                        <input type="number" name="precio_compra" class="form-control" placeholder="29.99" step=0.10 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required pattern="[0-9]+.[0-9][0-9]" />
+                        <input type="text" name="precio_compra" class="form-control" placeholder="29.99" step=0.10 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required pattern="^\d+(?:\.\d{2})?$" />
                     </div>
                     <!--VALIDACIÓN DE PRECIO COMPRA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_compra.touched && !precio_compra.valid">
@@ -177,7 +177,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0 my-0">
                         <div class="input-group-addon fa fa-usd"></div>
-                        <input type="number" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required pattern="[0-9]+.[0-9][0-9]" />
+                        <input type="number" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required pattern="^\d+(?:\.\d{2})?$" />
                     </div>
                     <!--VALIDACIÓN DE PRECIO VENTA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_venta.touched && !precio_venta.valid">
