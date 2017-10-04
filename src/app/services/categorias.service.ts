@@ -15,8 +15,10 @@ export class CategoriasService {
     constructor(private _http: Http) {
         this.url = GLOBAL.url;
     }
-    //codigo 200 ok
-    //404 erro
+
+    // codigo 200 ok
+    // 404 erro
+
       agregarCategoria(categoriaa) {
         const params = JSON.stringify(categoriaa);
         console.log(params);
@@ -29,19 +31,17 @@ export class CategoriasService {
                          .map((res: Response) => res.json());
       }
 
-      modificarCategoria(categoriaa){
+      modificarCategoria(categoriaa) {
         const params = JSON.stringify(categoriaa);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.put(this.url+'categoria/modificar',params,{headers:headers})
-          .map((res:Response) => res.json());
+        return this._http.put('http://192.168.0.42:8080/categoria/modificar', params, {headers: headers})
+          .map((res: Response) => res.json());
       }
 
-      eliminarCategoria(categoriaa){
-        const params = JSON.stringify(categoriaa);
-        console.log(params);
+      eliminarCategoria(categoriaa) {
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.delete(this.url+'categoria/eliminar/'+params,{headers:headers})
-          .map((res:Response) => res.json());
+        return this._http.delete('http://192.168.0.42:8080/categoria/borrar/' + categoriaa, {headers: headers})
+          .map((res: Response) => res.json());
       }
 }

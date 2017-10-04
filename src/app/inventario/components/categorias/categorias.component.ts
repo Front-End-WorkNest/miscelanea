@@ -22,6 +22,8 @@ export class CategoriasComponent implements OnInit {
   public categorias: Categoria[];
   public status: string;
   public categoriaSeleccionada: Categoria;
+  public indexclone: number;
+  public categoriamodificada: Categoria;
   constructor(
     private _categoriasService: CategoriasService
   ) {
@@ -85,7 +87,9 @@ export class CategoriasComponent implements OnInit {
 
   asignarCat(i)  {
     this.categoriaSeleccionada = new Categoria(0 , '', '');
+    this.categoriamodificada = this.categorias[i];
     this.categoriaSeleccionada = this.simpleClone(this.categorias[i]);
+    this.indexclone = i;
   }
   onSubmitMod() {
     alert(JSON.stringify(this.categoriaSeleccionada));
@@ -99,14 +103,25 @@ onClear() {
 });
 }
 /**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
-modificar()
-{
+modificar() {
   console.log(this.categoriaSeleccionada);
   this._categoriasService.modificarCategoria(this.categoriaSeleccionada).subscribe(
     result => {
-      console.log('Producto Modificado con éxito!');
+      console.log('Categoria Modificado con éxito!');
+      this.status = 'success2';
       this.categorias = result;
       console.log(JSON.stringify(result));
+      this.categorias = null;
+      this._categoriasService.getCategorias().subscribe(
+        result2 => {
+          console.log('Categorias cargadas');
+          this.categorias = result2;
+          console.log(JSON.stringify(result2));
+        },
+        error => {
+          console.log(error);
+        }
+      );
     },
     error => {
       console.log('error');
@@ -115,6 +130,52 @@ modificar()
   );
 }
 
+closeAllModals() {
+  $('#AceptarModificar, #exampleModalCModificar, #AceptarBorrar').modal('hide');
+}
 
+eliminar() {
+
+  console.log('eliminando');
+  this._categoriasService.eliminarCategoria(this.categoriaSeleccionada.id).subscribe(
+    result => {
+      console.log('Categoria Eliminada con éxito!');
+      this.status = 'success3';
+      this.categorias = result;
+      console.log(JSON.stringify(result));
+      this.categorias = null;
+      this._categoriasService.getCategorias().subscribe(
+        result2 => {
+          console.log('Categorias cargadas');
+          this.categorias = result2;
+          console.log(JSON.stringify(result2));
+        },
+        error2 => {
+          console.log(error2);
+        }
+      );
+    },
+    error3 => {
+      if (error3.status && error3.status === 500) {
+        this.status = 'success3';
+      }else {
+        console.log('Categoria Eliminada con éxito!');
+        this.status = 'success4';
+        this.categorias = null;
+        this._categoriasService.getCategorias().subscribe(
+          result2 => {
+            console.log('Categorias cargadas');
+            this.categorias = result2;
+            console.log(JSON.stringify(result2));
+          },
+          error2 => {
+            console.log(error2);
+          }
+        );
+      }
+    }
+  );
+
+}
 
 }

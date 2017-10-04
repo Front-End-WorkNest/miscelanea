@@ -28,7 +28,7 @@ export class ProductosComponent implements OnInit {
 
    // Declaracion de las variables necesarias para los metodos que traen los datos de la BD y codigos de status
   public producto: Producto; // Instanciamos el objeto de Models
-  public productos: Producto[]; // Instanciamos el objeto de Models
+  public productos; // Instanciamos el objeto de Models
   public productoSeleccionado;
 
   public categoria: Categoria;
@@ -43,7 +43,7 @@ export class ProductosComponent implements OnInit {
     this.title1="Agregar Producto";
     this.title2="Editar Producto";
     this.categoria = new Categoria (0,"","");
-    this.producto = new Producto ("", "", "", 0, 0, 0, null);
+    this.producto = new Producto ("", "", "", 0, 0, 0, "");
     this.categorias = new Array();
     //Definimos la propiedad a modificar de productos y definimos el Array
     this.productoSeleccionado = new Producto("", "", "", 0, 0, 0, "");
@@ -52,7 +52,7 @@ export class ProductosComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
     this._productosService.getProductos().subscribe(
       result => {
         console.log('Productos cargados');
@@ -76,7 +76,7 @@ export class ProductosComponent implements OnInit {
   }
 
   refresh() {
-    
+
     console.log('Refresh');
     this._productosService.getProductos().subscribe(
       result => {
@@ -94,20 +94,20 @@ export class ProductosComponent implements OnInit {
   onSubmit(){
     //console.log("El arreglo de productos enviados es: ");
     //console.log(JSON.stringify(this.producto));
-  
+
     //this.productos.push(this.producto);
     //console.log(this.productos);
-      
+
 //ESTO ENVIÁ LOS ADTOS DEL FORMULARIO AL SERVIDOR Y EVALUA SI ESTE LO HA RECIBIDO O NO
       this._productosService.agregarProductos(this.producto).subscribe(
-          response => 
+          response =>
           {
             console.log("ELEMENTOS A GUARDAR.....");
             console.log(JSON.stringify(response));
             //if(response.codigoBarras==this.productos[1])
-            
+
               //console.log("PRODUCTO REPETIDO MEN!");
-            
+
               //else{
                 console.log("Guardando EN TABLA DE MANERA LOCAL...");
                 console.log(JSON.stringify(response));
@@ -118,7 +118,18 @@ export class ProductosComponent implements OnInit {
                 console.log(this.productos);
                 /**Cerramos el modal despúes de que se insertó correctamente... */
                 $('#exampleModalP').modal('hide');
-              
+                this.productos = null;
+                this._productosService.getProductos().subscribe(
+                  result2 => {
+                    console.log('Productos cargados');
+                    this.productos = result2;
+                    console.log(JSON.stringify(result2));
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                );
+
           },
           error => {
               console.log(<any>error);
@@ -130,6 +141,7 @@ export class ProductosComponent implements OnInit {
   asignarCat(i)  {
     //this.productoSeleccionado = new Categoria(0 , '', '');
     this.productoSeleccionado = this.simpleClone(this.productos[i]);
+    console.log(this.productoSeleccionado);
   }
   onSubmitMod() {
     alert(JSON.stringify(this.productoSeleccionado));
@@ -143,10 +155,14 @@ AceptarUpdateProducto()
 }
 /**Volver a posicionar el select en 0 */
 Selectcero(){
-    $('#exampleFormControlSelect1').prop('selectedIndex',0);}
+  $('#exampleFormControlSelect1').prop('selectedIndex',0);
+  $('#exampleFormControlSelect2').prop('selectedIndex',0);
+  }
 
 cerrarModalConfirm(){
   $('#modalAceptUpPro').modal('hide');
+  $('#modaleditPro').modal('hide');
+
   //$('#modaleditPro').modal('hide');
 }
 /**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
@@ -159,7 +175,20 @@ modificar()
       console.log('Producto Modificado con éxito!');
       this.productos = result;
       console.log(JSON.stringify(result));
-      
+
+
+       this.productos = null;
+       this._productosService.getProductos().subscribe(
+         result2 => {
+           console.log('Productos cargados');
+           this.productos = result2;
+           console.log(JSON.stringify(result2));
+         },
+        error => {
+           console.log(error);
+         }
+       );
+
     },
     error => {
       this.status = 'error';
@@ -175,14 +204,14 @@ guardarValor(idModificar)
 }
 
 obtenerIdCategoria() {
-  
+
   for (let cat of this.categorias) {
       if(cat.nombre === this.cate) {
           this.productoSeleccionado.categoria= cat.id;
           alert(JSON.stringify(this.productoSeleccionado));
           console.log("holi");
         console.log(cat.id);
-        
+
         console.log(this.productoSeleccionado);
       }
       else {

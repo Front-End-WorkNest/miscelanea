@@ -382,15 +382,15 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
 
-                        <select class="form-control" id="exampleFormControlSelect1" name="categoria" [(ngModel)]="cate" placeholder="categorias" type="text" minlength="1" maxlength="10" #categoria="ngModel" [(ngModel)]="productoSeleccionado.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
-                        <option selected>Escoge una categoria...</option>
+                        <select class="form-control" id="exampleFormControlSelect2" name="categoria" [(ngModel)]="cate" placeholder="categorias" type="text" minlength="1" maxlength="10" #categoria="ngModel" [(ngModel)]="productoSeleccionado.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                        <option selected>{{productoSeleccionado.categoria}}</option>
                         <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
                       </select>
 
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" (click)="AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
+                            <button type="submit" class="btn btn-primary" (click)="cerrarModalConfirm(); AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>
@@ -420,7 +420,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); modificar();">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); modificar(); Selectcero();">Aceptar</button>
             </div>
         </div>
     </div>
