@@ -18,13 +18,13 @@
         </div>
     </div>
     <!--MENSAJE DE SUCCESS-->
-    <div *ngIf="status=='bien'" class="alert alert-success modal1 mt-3" role="alert">
+    <div *ngIf="status=='bien'" class="alert alert-success mt-3" role="alert">
         El producto ha sido registrado!
     </div>
     <!--/success-->
 
-    <!--MENSAJE DE SUCCESS-->
-    <div *ngIf="status=='successM'" class="alert alert-success modal1 mt-3" role="alert">
+    <!-- MENSAJE DE SUCCESS-->
+    <div *ngIf="statusM=='successM'" class="alert alert-success mt-3" role="alert">
         El producto ha sido modificado con éxito!
     </div>
     <!--/success-->
@@ -63,7 +63,7 @@
 </table>
 <!-- Modal Agregar producto -->
 <!-- Modal -->
-<div class="modal fade" id="exampleModalP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" (change)="onClear()">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,7 +149,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
                         <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
-                        <input type="text" name="cantidaddos" class="form-control" placeholder="500" #cantidaddos="ngModel" [(ngModel)]="producto.cantidaddos" required pattern="[1-9][0-9]*$" />
+                        <input type="text" name="cantidaddos" class="form-control" placeholder="500" #cantidaddos="ngModel" [(ngModel)]="producto.cantidad" required pattern="[1-9][0-9]*$" />
                     </div>
                     <!--VALIDACIÓN DE cantidaddos-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidaddos.touched && !cantidaddos.valid">
@@ -168,16 +168,16 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-1  my-0">
                         <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
-                        <input type="text" name="precio_compra" class="form-control" placeholder="29.99" step=0.01 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required pattern="[0-9]+.([0-9][0-9])$" />
+                        <input type="text" name="precio_compra" class="form-control" placeholder="29.99" step=0.01 #precio_compra="ngModel" [(ngModel)]="producto.precioCompra" required pattern="[1-9][0-9]*.([0-9][0-9])$" />
                     </div>
                     <!--VALIDACIÓN DE PRECIO COMPRA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_compra.touched && !precio_compra.valid">
                         <span *ngIf="precio_compra.errors.required">
-                                 El precio de compra es requerido
-                            </span>
+                                     El precio de compra es requerido
+                                </span>
                         <span *ngIf="precio_compra.errors.pattern">
-                                El formato de precio de COMPRA deberá tener el siguiente formato: 99.99
-                            </span>
+                                    El formato de precio de COMPRA deberá tener el siguiente formato: 99.99
+                                </span>
                     </div>
                     <!-- TERMINA VALIDACIÓN DE PRECIO COMPRA-->
                     <!--TERMINA PC-->
@@ -188,16 +188,16 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0 my-0">
                         <div class="input-group-addon fa fa-usd"></div>
-                        <input type="text" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required pattern="[0-9]+.([0-9][0-9])$" />
+                        <input type="text" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precio_venta="ngModel" [(ngModel)]="producto.precioVenta" required pattern="[1-9][0-9]*.([0-9][0-9])$" />
                     </div>
                     <!--VALIDACIÓN DE PRECIO VENTA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_venta.touched && !precio_venta.valid">
                         <span *ngIf="precio_venta.errors.required">
-                                     El precio de venta es requerido
-                                </span>
+                                         El precio de venta es requerido
+                                    </span>
                         <span *ngIf="precio_venta.errors.pattern">
-                                    El formato de VENTA de compra deberá tener el siguiente formato: 99.99
-                                </span>
+                                        El formato de VENTA de compra deberá tener el siguiente formato: 99.99
+                                    </span>
                     </div>
                     <br />
                     <!--TERMINA VALIDACIÓN DE PRECIO VENTA-->
@@ -218,7 +218,7 @@
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" [disabled]="!formRegistroPro.form.valid">Guardar</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!formRegistroPro.form.valid" (click)="onClear(); cerrarModalConfirm();Selectcero()">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>
@@ -382,7 +382,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
 
-                        <select class="form-control" id="exampleFormControlSelect1" name="categoria" placeholder="categorias" type="text" minlength="1" maxlength="10" #categoria="ngModel" [(ngModel)]="productoSeleccionado.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                        <select class="form-control" id="exampleFormControlSelect1" name="categoria" [(ngModel)]="cate" placeholder="categorias" type="text" minlength="1" maxlength="10" #categoria="ngModel" [(ngModel)]="productoSeleccionado.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
                         <option selected>Escoge una categoria...</option>
                         <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
                       </select>
@@ -390,7 +390,7 @@
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" (click)="AceptarUpdateProducto()" data-target="#modalAceptUpPro">Guardar</button>
+                            <button type="submit" class="btn btn-primary" (click)="AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>
@@ -420,7 +420,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); obtenerIdCategoria(producto.categoria); modificar(i);">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); modificar();">Aceptar</button>
             </div>
         </div>
     </div>

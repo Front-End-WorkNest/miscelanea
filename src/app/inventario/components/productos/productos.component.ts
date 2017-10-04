@@ -22,7 +22,9 @@ export class ProductosComponent implements OnInit {
   public title1:string;
   public title2:string;
   public status: string;
+  public statusM:string;
   public idModificar:string;
+  public cate:string;
 
    // Declaracion de las variables necesarias para los metodos que traen los datos de la BD y codigos de status
   public producto: Producto; // Instanciamos el objeto de Models
@@ -41,12 +43,14 @@ export class ProductosComponent implements OnInit {
     this.title1="Agregar Producto";
     this.title2="Editar Producto";
     this.categoria = new Categoria (0,"","");
-    this.producto = new Producto ("", "", "", 0, 0, 0, "");
+    this.producto = new Producto ("", "", "", 0, 0, 0, null);
     this.categorias = new Array();
     //Definimos la propiedad a modificar de productos y definimos el Array
     this.productoSeleccionado = new Producto("", "", "", 0, 0, 0, "");
     this.productos = new Array();
   }
+
+
   ngOnInit() {
     
     this._productosService.getProductos().subscribe(
@@ -137,13 +141,13 @@ AceptarUpdateProducto()
 {
   $('#modalAceptUpPro').modal('show');
 }
+/**Volver a posicionar el select en 0 */
+Selectcero(){
+    $('#exampleFormControlSelect1').prop('selectedIndex',0);}
+
 cerrarModalConfirm(){
   $('#modalAceptUpPro').modal('hide');
   //$('#modaleditPro').modal('hide');
-}
-saluda()
-{
-  alert("Hola");
 }
 /**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
 modificar()
@@ -151,7 +155,7 @@ modificar()
   console.log(this.productoSeleccionado);
   this._productosService.modificarProducto(this.productoSeleccionado).subscribe(
     result => {
-      this.status = 'success';
+      this.statusM = 'successM';
       console.log('Producto Modificado con éxito!');
       this.productos = result;
       console.log(JSON.stringify(result));
@@ -170,18 +174,25 @@ guardarValor(idModificar)
   this.idModificar = idModificar;
 }
 
-obtenerIdCategoria(categoria: string) {
-  console.log(categoria);
+obtenerIdCategoria() {
+  
   for (let cat of this.categorias) {
-      if(cat.nombre === categoria) {
+      if(cat.nombre === this.cate) {
           this.productoSeleccionado.categoria= cat.id;
           alert(JSON.stringify(this.productoSeleccionado));
+          console.log("holi");
+        console.log(cat.id);
+        
+        console.log(this.productoSeleccionado);
+      }
+      else {
       }
   }
 }
 onClear() {
   $('#exampleModalP').on('hidden.bs.modal', function () {
     $('.modal-body').find('textarea,input').val('');
+    $('#exampleFormControlSelect1').prop('selectedIndex',0);
 });
 }
 }

@@ -1,6 +1,12 @@
 <!--TITULO-->
 <div class="container">
-    <h3 class="display-4">Ventas</h3>
+    <h3>Ventas</h3>
+</div>
+
+<div class="container" *ngIf="mostrandoError">
+    <div class="alert alert-danger">
+        <span>{{errMsg}}</span>
+    </div>
 </div>
 
 <br>
@@ -12,35 +18,36 @@
         <div class="col">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-keyboard-o" aria-hidden="true"></i></span>
-                <input type="text" [(ngModel)]="producto.codigoBarras">
-            </div>
-        </div>
-        <label>Cantidad</label>
-        <div class="col">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
-                <input type="number" [(ngModel)]="producto.cantidad">
+                <input type="text" [(ngModel)]="producto.codigoBarras" (keyup)="onKey($event)">
             </div>
         </div>
 
-        <button class="btn btn-success" (click)="pushProducto()">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      Agregar
-    </button>
+        <label *ngIf="existeProducto">Cantidad</label>
+        <div class="col">
+            <div class="input-group" *ngIf="existeProducto">
+                <span class="input-group-addon"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
+                <input type="number" [(ngModel)]="producto.cantidad" (change)="verificarCantidad()" (keyup)="verificarCantidad()">
+            </div>
+        </div>
+
+        <button class="btn btn-success" (click)="pushProducto()" *ngIf="existeProducto&&cantidadCorrecta">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Agregar
+          </button>
 
         <!--div class="col">
-      <input type="button" value="Agregar" (click)="pushProducto()" class="btn btn-primary">
-    </div-->
+            <input type="button" value="Agregar" (click)="pushProducto()" class="btn btn-primary">
+          </div-->
     </div>
 
     <!--button class="btn btn-primary">
-        <i class="fa fa-keyboard-o" aria-hidden="true"></i>
-        Teclear código
-  </button-->
+              <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+              Teclear código
+        </button-->
     <!--label>Producto:</label>
-  <input type="text" [(ngModel)]="producto.nombre">
-  <label>Cantidad:</label> <input type="number" [(ngModel)]="producto.cantidad">
-  <label>Precio unitario:</label> <input type="number" [(ngModel)]="producto.precioVenta"-->
+        <input type="text" [(ngModel)]="producto.nombre">
+        <label>Cantidad:</label> <input type="number" [(ngModel)]="producto.cantidad">
+        <label>Precio unitario:</label> <input type="number" [(ngModel)]="producto.precioVenta"-->
 
 </div>
 
@@ -60,17 +67,17 @@
                     <td>Acciones</td>
                 </tr>
                 <tr *ngFor="let prod of productos;let i=index">
-                    <td>{{prod.codigoBarras}}</td>
+                    <td><input type="checkbox" id="{{i}}">{{prod.codigoBarras}}</td>
                     <td>{{prod.nombre}}</td>
                     <td>{{prod.descripcion}}</td>
                     <td>{{prod.precioVenta}}</td>
                     <td>{{prod.cantidad}}</td>
                     <!--td>{{prod[0]}}</td>
-          <td>{{prod[1]}}</td>
-          <td>{{prod[3]}}</td-->
+                <td>{{prod[1]}}</td>
+                <td>{{prod[3]}}</td-->
                     <!--td><input type="text" value='{{prod[1]}}' readonly></td-->
                     <td>
-                        <input type="button" value="..." class="btn btn-primary" (click)="modificarCantidad(i)">
+                        <!-- <input type="button" value="..." class="btn btn-primary" (click)="modificarCantidad(i)"> -->
                         <input type="button" value="-" class="btn btn-danger" (click)="removeProducto(i)">
                     </td>
                 </tr>
@@ -86,7 +93,7 @@
             <h4 class="text-danger">Total:$ {{total}}</h4>
         </div>
         <div class="col">
-            <h4>Cambio:$ ? </h4>
+            <h4>Cambio:$ {{cambio}} </h4>
         </div>
     </div>
 </div>
@@ -96,15 +103,15 @@
 <!--BOTONES FOOTER-->
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <button class="btn btn-primary" (click)="onSubmit()">
-        <i class="fa fa-money" aria-hidden="true"></i>
-        Cobrar
-      </button>
-            <button class="btn btn-success">
-          <i class="fa fa-check" aria-hidden="true"></i>
-          Finalizar venta
-        </button>
+        <div class="col-md-3" *ngIf="total>0">
+            <button class="btn btn-primary" data-target="#exampleModal" data-toggle="modal">
+              <i class="fa fa-money" aria-hidden="true"></i>
+              Cobrar
+            </button>
+            <button class="btn btn-success" (click)="onSubmit()" [disabled]="!ventaValida">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Finalizar venta
+              </button>
         </div>
 
         <div class="col-md-6">
@@ -112,14 +119,14 @@
         </div>
 
         <div class="col-md-3">
-            <button class="btn btn-danger">
-      <i class="fa fa-trash" aria-hidden="true"></i>
-        Eliminar
-      </button>
-            <button class="btn btn-danger">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        Cancelar
-        </button>
+            <button class="btn btn-danger" (click)="removerSeleccion()" [disabled]="listaVacia">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+              Eliminar
+            </button>
+            <button class="btn btn-danger" [disabled]="listaVacia" (click)="cancelarVenta()"><!--data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()"-->
+                <i class="fa fa-times" aria-hidden="true"></i>
+              Cancelar
+              </button>
         </div>
     </div>
 </div>
@@ -128,8 +135,8 @@
 <br>
 
 <!--div class="container">
-  <input type="button" value="Guardar" class="btn btn-primary" (click)="onSubmit()">
-</div-->
+        <input type="button" value="Guardar" class="btn btn-primary" (click)="onSubmit()">
+      </div-->
 
 <!--EDITAR-->
 <div class="container">
@@ -137,8 +144,77 @@
         Cantidad: <input type="number" [(ngModel)]="nuevaCantidad">
         <input type="button" value="Aceptar" class="btn btn-primary" (click)="guardarCantidadModificada()">
     </div>
-
 </div>
-<div class="container">
-    <button onclick="gentabla()" class="btn btn-success"> Implimir Recibo</button>
+
+<!--MODAL CUADRO DIALOGO-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Venta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form #formPago="ngForm">
+                    <div>
+                        <label>Total a pagar: {{total}}</label><br />
+                    </div>
+                    <!--CÓDIGO DE BARRAS-->
+                    <p class="my-0">
+                        <label>Recibí</label>
+                    </p>
+                    <div class="input-group mb-2 mb-sm-0 my-0">
+                        <i class="input-group-addon fa fa-usd" aria-hidden="true"></i>
+                        <input class="form-inline" type="number" name="recibi" class="form-control" placeholder="0.00" step=0.10 required pattern="[0-9]+.[0-9][0-9]" [(ngModel)]="pago" (keyup)="realizarPago()" (change)="realizarPago()" />
+                    </div>
+                    <!--VALIDACIÓN DE PRECIO COMPRA
+                          <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="recibi.touched && !recibi.valid">
+                              <span *ngIf="recibi.errors.required">
+                                           El precio de compra es requerido
+                                      </span>
+                              <span *ngIf="recibi.errors.pattern">
+                                          El formato de precio de COMPRA deberá tener el siguiente formato: 99.99
+                                      </span>
+                          </div>
+                          TERMINA VALIDACIÓN DE PRECIO COMPRA-->
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()">
+                          Cancelar
+                      </button>
+                <button type="button" class="btn btn-success" [disabled]="!ventaValida" (click)="cerrar()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL CONFIRMAR CANCELACION-->
+<!-- Modal CONFIRMA CENCELAR-->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalCancel" #modalCancel>
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                ¿Desea cancelar la compra?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="cerrar()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <button onclick="gentabla()" class="btn btn-success"> Implimir Recibo</button>
+    </div>
 </div>

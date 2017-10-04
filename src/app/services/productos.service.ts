@@ -31,7 +31,7 @@ export class ProductoService {
         const params = JSON.stringify(productoo);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.put(this.url+'producto/modificar',params,{headers:headers})
+        return this._http.put('http://192.168.0.42:8080/producto/modificar',params,{headers:headers})
           .map((res:Response) => res.json());
       }
 
