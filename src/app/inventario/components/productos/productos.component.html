@@ -21,6 +21,13 @@
     <div *ngIf="status=='bien'" class="alert alert-success modal1 mt-3" role="alert">
         El producto ha sido registrado!
     </div>
+    <!--/success-->
+
+    <!--MENSAJE DE SUCCESS-->
+    <div *ngIf="status=='successM'" class="alert alert-success modal1 mt-3" role="alert">
+        El producto ha sido modificado con éxito!
+    </div>
+    <!--/success-->
 </div>
 <!--TABLA PRINCIPAL-->
 <table class="table table-striped">
@@ -108,6 +115,7 @@
                     <!--COMIENZA VALIDACIÓN DE NOMBRE-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre_prod.touched && !nombre_prod.valid">
 
+
                         <span *ngIf="nombre_prod.errors.required">
                          El nombre es requerido
                     </span>
@@ -141,14 +149,14 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
                         <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
-                        <input type="text" value="null" name="cantidad" class="form-control" placeholder="500" #cantidad="ngModel" [(ngModel)]="producto.cantidad" required pattern="[0-9]+" />
+                        <input type="text" name="cantidaddos" class="form-control" placeholder="500" #cantidaddos="ngModel" [(ngModel)]="producto.cantidaddos" required pattern="[1-9][0-9]*$" />
                     </div>
-                    <!--VALIDACIÓN DE CANTIDAD-->
-                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.touched && !cantidad.valid">
-                        <span *ngIf="cantidad.errors.required">
+                    <!--VALIDACIÓN DE cantidaddos-->
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidaddos.touched && !cantidaddos.valid">
+                        <span *ngIf="cantidaddos.errors.required">
                                      Este campo es requerido.
                                 </span>
-                        <span *ngIf="cantidad.errors.pattern">
+                        <span *ngIf="cantidaddos.errors.pattern">
                                     Sólo puedes ingresar números enteros.
                         </span>
                     </div>
@@ -230,8 +238,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert">
-                </div>
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
                 <h5 class="modal-title" id="exampleModalLabel">{{title2}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -383,7 +390,7 @@
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" [disabled]="!formEditPro.form.valid" (click)="AceptarUpdateProducto()" data-target="#modalAceptUpPro">Guardar</button>
+                            <button type="submit" class="btn btn-primary" (click)="AceptarUpdateProducto()" data-target="#modalAceptUpPro">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>
@@ -413,7 +420,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); modificar(i); obtenerIdCategoria(producto.categoria)">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="cerrarModalConfirm(); obtenerIdCategoria(producto.categoria); modificar(i);">Aceptar</button>
             </div>
         </div>
     </div>
