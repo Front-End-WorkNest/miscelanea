@@ -25,7 +25,7 @@ $(function() {
     /*    $('#box').click(function() {
                 alert('you just cicked the box');
             });
-    
+
             //lost focus ↓
             $("input").blur(function() {
                 if ($(this).val() == "") {
@@ -33,80 +33,80 @@ $(function() {
                     $('#box').text('Forgot to add text?');
                 }
             });
-    
-    
+
+
             $("input").keydown(function() {
                 if ($(this).val() !== "") {
                     $(this).css('border', 'solid 1px #777');
                     $('#box').text('Thanks for that');
                 }
             });
-    
+
             para cuando se entra en un objeto parecido al focus
             $('#box').hover(function() {
                 $(this).text('You hovered!');
             }, function() {
                 $(this).text('you hovered out');
             });
-    
-    
+
+
             chaining↓↓↓
             $('.notification-bar').delay(1000).slideDown().delay(1000).fadeOut();
-        
+
         //    $('div.hidden').hide();
-    
+
         //    $('div.hidden').fadeIn(4000);
-    
+
         $('#box1').click(function() {
             $(this).fadeTo(1000, 0.20, function() {
                 //animation is competed
                 $(this).slideUp();
             });
         });
-    
+
         $('div.hidden').hide().slideDown(1000);
-    
+
         $('button').click(function() {
             $('#box1').slideToggle();
         });
-    
-    
+
+
         $('#left').click(function() {
             $('.box').animate({
                 left: "-=40px",
                 fontSize: "+=2px"
             }, function() {
-    
+
             });
         });
-    
+
         $('#up').click(function() {
             $('.box').animate({
                 top: "-=40px",
                 opacity: "+=.03"
             }, function() {
-    
+
             });
         });
-    
+
         $('#right').click(function() {
             $('.box').animate({
                 left: "+=40px",
                 fontSize: "-=2px"
             }, function() {
-    
+
             });
         });
-    
+
         $('#down').click(function() {
             $('.box').animate({
                 top: "+=40px",
                 opacity: "-=.03"
             }, function() {
-    
+
             });
         });
-    
+
         $('#circle2').css({
             'background': '#8a8d22',
             'display': 'inline-block',
@@ -189,10 +189,16 @@ $(function() {
         doc.save('Test.pdf');
     }
     genPDF2 = function() {
+        var campo = document.getElementById('campo1').value;
+        console.log(elem);
         var doc = new jsPDF();
-        doc.fromHTML($('#formtest').get(0), 10, 10, {
+        doc.text(campo);
+        doc.fromHTML($('#campos').get(0), 10, 10, {
             'width': 500
         });
+        // doc.fromHTML($('#campo2').get(0), 30, 30, {
+        //     'width': 500
+        // });
         doc.save('Test.pdf');
     }
 
@@ -214,24 +220,63 @@ $(function() {
         }
         return data;
     }
-    genPDF3 = function() {
-        //var table = tableToJson($('#example').get(0));
+    gentabla = function() {
 
+        //las 2 lineas de codigo cson para tomar texto de un input
+        //     var campo = document.getElementById('campo1').value;
+        //     doc.text(campo);
+
+        //La siguiente linea de codigo sirve para tomar del html diversas cosas en este caso de una etiqueta <p>
+        // doc.fromHTML($('#texto').get(0), 10, 10, {
+        //     'width': 500
+        // });
+
+        //Se crea la variable table, recupera desde el HTML la tabla con el id carrito y se transforma en JSON para luego poder ser utilizado
         var table = $('#carrito').tableToJSON();
-        var doc = new jsPDF('l', 'pt', 'letter', true);
-        console.log(table);
-        doc.text(53, 55, 'Producto                           Cantidad');
+        //variable doc del objeto jsPDF con los parametros
+        //  p=portrait (orientacion de la pagina)
+        //  pt=?
+        //  letter=tamaño de la hoja
+        var doc = new jsPDF('p', 'pt', 'letter', true);
+        doc.setFontSize(28);
+        doc.text(220, 80, 'La Miscelanea');
+        doc.setFontSize(14);
+        doc.rect(395, 97, 183, 59);
+        doc.text(400, 110, "Total: ");
+        doc.text(400, 130, "Cantidad Recibida: ");
+        doc.text(400, 150, "Cambio: ");
+
+        //se recuperan los datos como el total, cantidad recibida y el cambio
+        doc.fromHTML($('#texto').get(0), 535, 91, {});
+        doc.text(42, 175, 'Código de Barras    Nombre         Descripción                Precio Venta   Cantidad');
+        doc.setFontSize(12);
+
+        //se inicializa doc para la generacion de la tabla usando el JSON anteriormete generado
+        //en cada if se define el tamaño de cada celda
         doc.cellInitialize();
         $.each(table, function(i, row) {
             $.each(row, function(j, cell) {
-                if (j == "Operacion" | j == 1) {
+                if (j == "Código de barras") {
+                    doc.cell(40, 186, 115, 28, cell, i);
+                }
+                if (j == "Nombre") {
+                    doc.cell(40, 186, 90, 28, cell, i);
+                }
+                if (j == "Descripción") {
+                    doc.cell(40, 186, 140, 28, cell, i);
+                }
+                if (j == "Precio venta") {
+                    doc.cell(40, 186, 91, 28, cell, i);
+                }
+                if (j == "Cantidad") {
+                    doc.cell(40, 186, 88, 28, cell, i);
+                }
+                if (j == "Acciones") {
                     // doc.cell(1, 10, 190, 20, cell, i);
-                } else {
-                    doc.cell(35, 66, 190, 28, cell, i);
-                } 
+                }
             });
         });
-
-        doc.save('pdf.pdf');
+        //por ultimo se guarda el archivo para impresion
+        doc.save('ticket.pdf');
     }
 });

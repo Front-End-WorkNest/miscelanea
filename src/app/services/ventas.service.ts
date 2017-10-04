@@ -15,24 +15,22 @@ export class VentasService {
     constructor(private _http: Http) {
         this.url = GLOBAL.url;
     }
+    //Codigo 200 exito
+    //codigo 400 not found
+    //codig 500 error interno (alguna de las razones puede ser por que se envia un dato incorrecto desde front)
       agregarVenta(ventaa) {
         const params = JSON.stringify(ventaa);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.post(this.url + 'ventaaaaaa/iiiiiiinsertar/', params, {headers: headers})
+        return this._http.post(this.url + 'venta/registrar/', params, {headers: headers})
                          .map(res => res.json());
       }
-      getVenta() {
-        return this._http.get(this.url + 'ventaaa/leer')
-                         .map((res: Response) => res.json());
-      
-      }
 
-      getCantidad(codigoo){
+      getProducto(codigoo){
         const params = JSON.stringify(codigoo);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.post(this.url + 'ventaaaaaa/cantidaaad/', params, {headers: headers})
+        return this._http.post(this.url + 'producto/buscar/', params, {headers: headers})
                          .map(res => res.json());
       }
       

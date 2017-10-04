@@ -21,10 +21,12 @@ export class CategoriasComponent implements OnInit {
   public categoria: Categoria;
   public categorias: Categoria[];
   public status: string;
+  public categoriaSeleccionada: Categoria;
   constructor(
     private _categoriasService: CategoriasService
   ) {
     this.categoria = new Categoria(0 , '', '');
+    this.categoriaSeleccionada = new Categoria(0 , '', '');
     this.categorias = new Array();
   }
 
@@ -69,6 +71,7 @@ export class CategoriasComponent implements OnInit {
         this.categoria = result;
         this.status = 'success';
         this.categorias.push(this.categoria);
+        this.categoria = new Categoria(0 , '', '');
         console.log(JSON.stringify(result));
         $('#exampleModalC').modal('hide');
       },
@@ -79,5 +82,39 @@ export class CategoriasComponent implements OnInit {
       }
     );
   }
+
+  asignarCat(i)  {
+    this.categoriaSeleccionada = new Categoria(0 , '', '');
+    this.categoriaSeleccionada = this.simpleClone(this.categorias[i]);
+  }
+  onSubmitMod() {
+    alert(JSON.stringify(this.categoriaSeleccionada));
+  }
+  simpleClone(obj: any) {
+    return Object.assign({}, obj);
+}
+onClear() {
+  $('#exampleModalC').on('hidden.bs.modal', function () {
+    $('.modal-body').find('textarea,input').val('');
+});
+}
+/**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
+modificar()
+{
+  console.log(this.categoriaSeleccionada);
+  this._categoriasService.modificarCategoria(this.categoriaSeleccionada).subscribe(
+    result => {
+      console.log('Producto Modificado con éxito!');
+      this.categorias = result;
+      console.log(JSON.stringify(result));
+    },
+    error => {
+      console.log('error');
+      console.log(error);
+    }
+  );
+}
+
+
 
 }
