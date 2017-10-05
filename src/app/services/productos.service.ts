@@ -39,7 +39,7 @@ export class ProductoService {
         const params = JSON.stringify(productoo);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.delete(this.url+'producto/eliminar/'+params,{headers:headers})
+        return this._http.delete(this.url+'producto/eliminar/'+productoo,{headers:headers})
           .map((res:Response) => res.json());
       }
 

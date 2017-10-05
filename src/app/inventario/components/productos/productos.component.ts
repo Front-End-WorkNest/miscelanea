@@ -153,7 +153,6 @@ export class ProductosComponent implements OnInit {
     console.log('htyrrrye' +this.productoSeleccionado);
   }
   onSubmitMod() {
-    alert(JSON.stringify(this.productoSeleccionado));
   }
   simpleClone(obj: any) {
     return Object.assign({}, obj);
@@ -192,33 +191,35 @@ export class ProductosComponent implements OnInit {
   /**FUNCIÓN ELIMINAR PRODUCTO */
   eliminar() {
     //console.log("Producto a eliminar:" + this.productoSeleccionado);
-    //console.log("categoria"+this.productoSeleccionado.codigoBarras);
+    console.log("categoria= "+this.productoSeleccionado.codigoBarras);
     this._productosService.eliminarProducto(this.productoSeleccionado.codigoBarras).subscribe(
         result => {
-          
-          alert("Producto eliminado con éxito!");
           
           // console.log(JSON.stringify(result));
           /**REINICIAMOS LAS PETICIONES AL SERVIDOR */
           
         },
         error => {
-          console.log(error);
-          this.s = 'eliminado';
-          
-          this.productos = null;
-          this._productosService.getProductos().subscribe(
-            result2 => {
-              this.s = 'eliminado';
-              console.log("Productos cargados....");
-              this.productos = result2;
-              console.log(JSON.stringify(result2));
-            },
-            error2 => {
-              console.log(error2);
-              alert("1");
-            }
-          );
+          if (error.status && error.status === 404) {
+            this.s = 'errorNo';
+          }else {
+            console.log(error);
+            this.s = 'eliminado';
+            
+            this.productos = null;
+            this._productosService.getProductos().subscribe(
+              result2 => {
+                this.s = 'eliminado';
+                console.log("Productos cargados....");
+                this.productos = result2;
+                console.log(JSON.stringify(result2));
+              },
+              error2 => {
+                console.log(error2);
+              }
+            );
+          }
+        
         }
         
       );
@@ -233,7 +234,6 @@ export class ProductosComponent implements OnInit {
     for (let cat of this.categorias) {
       if (cat.nombre === this.cate) {
         this.productoSeleccionado.categoria = cat.id;
-        alert(JSON.stringify(this.productoSeleccionado));
         //console.log("holi");
         console.log(cat.id);
 

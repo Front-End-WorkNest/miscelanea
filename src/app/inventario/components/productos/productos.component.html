@@ -32,6 +32,9 @@
     <div *ngIf="s == 'eliminado'" class="alert alert-success mt-3" role="alert">
         El producto ha sido eliminado con éxito!
     </div>
+    <div *ngIf="s == 'errorNo'" class="alert alert-danger mt-3" role="alert">
+        El producto no ha sido eliminado porque ya existe una venta con él!
+    </div>
 </div>
 <!--TABLA PRINCIPAL-->
 <table class="table table-striped">
