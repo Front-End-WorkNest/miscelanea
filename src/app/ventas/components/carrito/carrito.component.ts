@@ -20,7 +20,7 @@ export class CarritoComponent implements OnInit {
   //MENSAJE DE ERROR
   mostrandoError: boolean;
   errMsg: string;
-
+  status: string;
   //ARRAY DE PRODUCTOS
   productos: Array<Producto>;
 
@@ -74,7 +74,7 @@ export class CarritoComponent implements OnInit {
     this.carrito = [];
 
     this.producto = new Producto('', '', '', 0, 0, 0, null);//CAMBIAR JORGITO ESTUPIDITO
-    this.producto.cantidad = 0;
+    this.producto.cantidad = 1;
     this.editando = false;
     this.existeProducto = false;
     this.cantidadCorrecta = true;
@@ -111,7 +111,7 @@ export class CarritoComponent implements OnInit {
   ngOnInit() {
     if (this.productos.length > 0)
       this.listaVacia = false;
-  } 
+  }
 
   //AGREGAR PRODUCTOS Y CANTIDAD AL CARRITO
   pushProducto()//(producto,cantidad)
@@ -295,6 +295,7 @@ export class CarritoComponent implements OnInit {
     );
 
 
+ 
     //REINICIACION DE VALORES
     this.productos = new Array();
     localStorage.clear();
@@ -304,9 +305,12 @@ export class CarritoComponent implements OnInit {
     this.cantidadCorrecta = false;
     this.producto = new Producto('', '', '', 0, 0, 0, null);
     this.mostrandoError = false;
+    this.status = ""
     this.errMsg = '';
     this.listaVacia = true;
     this.cerrar();
+
+    alert("Venta realizada!!");
 
     /*DEPRECATED
     console.log('se ha enviado');
@@ -342,11 +346,14 @@ export class CarritoComponent implements OnInit {
               this.producto.precioCompra = result.precioCompra;
               this.producto.categoria = result.categoria;
               this.existeProducto = true;
+              this.status = "";
+              this.mostrandoError = false;
               this.cantidadExistente = result.cantidad;
             }, error => {
               var error = <any>error;
               this.mostrandoError = true;
               this.errMsg = 'Producto no encontrado';
+              this.status = "error";
               this.existeProducto = false;
               console.log(error);
             }
@@ -388,14 +395,27 @@ export class CarritoComponent implements OnInit {
       this.errMsg = 'Se agotó producto';
       this.mostrandoError = true;
     }
+
   }
 
   //VERIFICAR CANTIDADES CORRECTAS
   verificarCantidad() {
-    if (this.producto.cantidad > 0 && this.producto.cantidad <= this.cantidadExistente)
+    if (this.producto.cantidad > 0 && this.producto.cantidad <= this.cantidadExistente) {
       this.cantidadCorrecta = true;
-    else //{
+      this.status = "";
+    }
+    else if (this.producto.cantidad <= 0) {
+
+      this.errMsg = "Cantidad Incorrecta";
       this.cantidadCorrecta = false;
+      this.status = "error";
+    }
+    else if (this.producto.cantidad > this.cantidadExistente) {
+      this.errMsg = "No hay esa cantidad en existencia.";
+      this.cantidadCorrecta = false;
+      this.status = "error";
+    }
+    //{
     /*
     if (this.producto.cantidad < 0)
       this.producto.cantidad = 0;
@@ -403,8 +423,6 @@ export class CarritoComponent implements OnInit {
       this.producto.cantidad = this.cantidadExistente;
       */
     //}
-
-
   }
 
   onKey(event: any) {
@@ -447,7 +465,16 @@ export class CarritoComponent implements OnInit {
     //alert("CANCELAR?");
     $('#modalCancel').modal('show');
   }
+  
   cerrar() {
+    $('#modalCancel').modal('hide');
+    $('#exampleModal').modal('hide');
+    this.pago = 0;
+    this.realizarPago();
+  }
+
+  aceptar()
+  {
     $('#modalCancel').modal('hide');
     $('#exampleModal').modal('hide');
   }

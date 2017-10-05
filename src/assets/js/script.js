@@ -233,6 +233,7 @@ $(function() {
 
         //Se crea la variable table, recupera desde el HTML la tabla con el id carrito y se transforma en JSON para luego poder ser utilizado
         var table = $('#carrito').tableToJSON();
+        console.log(table);
         //variable doc del objeto jsPDF con los parametros
         //  p=portrait (orientacion de la pagina)
         //  pt=?
@@ -241,37 +242,49 @@ $(function() {
         doc.setFontSize(28);
         doc.text(220, 80, 'La Miscelanea');
         doc.setFontSize(14);
-        doc.rect(395, 97, 183, 59);
-        doc.text(400, 110, "Total: ");
-        doc.text(400, 130, "Cantidad Recibida: ");
-        doc.text(400, 150, "Cambio: ");
+        doc.rect(385, 97, 205, 59);
+        doc.text(388, 110, "Total:                      $");
+        doc.text(388, 130, "Cantidad Recibida: $");
+        doc.text(388, 150, "Cambio:                  $");
 
         //se recuperan los datos como el total, cantidad recibida y el cambio
-        doc.fromHTML($('#texto').get(0), 535, 91, {});
-        doc.text(42, 175, 'Código de Barras    Nombre         Descripción                Precio Venta   Cantidad');
+        doc.fromHTML($('#total').get(0), 528, 92, {});
+        doc.fromHTML($('#recibido').get(0), 528, 110, {});
+        doc.fromHTML($('#cambio').get(0), 528, 130, {});
+        doc.text(42, 175, 'Código de Barras    Nombre                      Precio               Cantidad     Subtotal');
         doc.setFontSize(12);
 
         //se inicializa doc para la generacion de la tabla usando el JSON anteriormete generado
         //en cada if se define el tamaño de cada celda
         doc.cellInitialize();
+        let a = 0,
+            b = 0,
+            c = 0;
         $.each(table, function(i, row) {
             $.each(row, function(j, cell) {
+
+
                 if (j == "Código de barras") {
-                    doc.cell(40, 186, 115, 28, cell, i);
+                    doc.cell(40, 186, 115, 26, cell, i);
                 }
                 if (j == "Nombre") {
-                    doc.cell(40, 186, 90, 28, cell, i);
+                    doc.cell(40, 186, 143, 26, cell, i);
                 }
                 if (j == "Descripción") {
-                    doc.cell(40, 186, 140, 28, cell, i);
+
+                    //doc.cell(40, 186, 140, 26, cell, i);
                 }
                 if (j == "Precio venta") {
-                    doc.cell(40, 186, 91, 28, cell, i);
+                    a = Number(cell);
+                    doc.cell(40, 186, 91, 26, cell, i);
                 }
                 if (j == "Cantidad") {
-                    doc.cell(40, 186, 88, 28, cell, i);
+                    b = Number(cell);
+                    doc.cell(40, 186, 88, 26, cell, i);
                 }
                 if (j == "Acciones") {
+                    c = a * b;
+                    doc.cell(40, 186, 88, 26, (c.toString()), i);
                     // doc.cell(1, 10, 190, 20, cell, i);
                 }
             });

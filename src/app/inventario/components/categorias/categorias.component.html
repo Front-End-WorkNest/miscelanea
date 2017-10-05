@@ -1,14 +1,14 @@
-  <!-- Componente Principal --> 
+<!-- Componente Principal -->
 
 <div class="mt-5 mb-5">
     <div class="row">
-      <div class="col-9">
-          <button type="button" data-toggle="modal" data-target="#exampleModalC" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
+        <div class="col-9">
+            <button type="button" data-toggle="modal" data-target="#exampleModalC" class="btn btn-success" (click)="onClear()"><i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo</button>
-          
-          <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
+
+            <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (Click)="refresh()"></i>
             Actualizar</button>
-      </div>
+        </div>
         <div class="col-3 d-flex flex-row-reverse">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -16,61 +16,61 @@
                   </button>
                 </span>
                 <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar...">
-              </div>
+            </div>
         </div>
     </div>
 
-        <!-- ngIf con status relacionado a la base de datos -->
+    <!-- ngIf con status relacionado a la base de datos -->
 
-    <div *ngIf="status=='success'" class="alert alert-success modal1 mt-3 " role="alert" >
-        La categoria {{categoriaSeleccionada.nombre}} ha sido registrada!
+    <div id="deletesuccess" *ngIf="status=='success'" class="alert alert-success modal1 mt-3 " role="alert">
+        La categoria ha sido registrada!
     </div>
-    <div *ngIf="status=='success2'" class="alert alert-success modal1 mt-3 " role="alert" >
-      La categoria "{{categoriaSeleccionada.nombre}}" ha sido modificada!
+    <div id="deletesuccess" *ngIf="status=='success2'" class="alert alert-success modal1 mt-3 " role="alert">
+        La categoria "{{categoriaSeleccionada.nombre}}" ha sido modificada!
     </div>
-    <div *ngIf="status=='success4'" class="alert alert-success modal1 mt-3 " role="alert"  >
-      La categoria "{{categoriaSeleccionada.nombre}}" ha sido eliminada!
-      </div>
-    <div *ngIf="status=='success3'" class="alert alert-danger modal1 mt-3 " role="alert"  >
-    La categoria "{{categoriaSeleccionada.nombre}}" no ha podido ser eliminada porque contiene productos!
+    <div id="deletesuccess" *ngIf="status=='success4'" class="alert alert-success modal1 mt-3 " role="alert">
+        La categoria "{{categoriaSeleccionada.nombre}}" ha sido eliminada!
     </div>
-  </div>
+    <div id="deletesuccess" *ngIf="status=='success3'" class="alert alert-danger modal1 mt-3 " role="alert">
+        La categoria "{{categoriaSeleccionada.nombre}}" no ha podido ser eliminada porque contiene productos!
+    </div>
+</div>
 
-  <table class="table table-striped">
-      <thead>
+<table class="table table-striped">
+    <thead>
         <tr>
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
         </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
 
         <!-- Llenado de la tabla del componente categorias recorriendo el arreglo obtenido de la base de datos con ngFor -->
 
         <tr *ngFor="let categoria of categorias;  let i = index">
-          <th scope="row">{{categoria.id}}</th>
-          <td>{{categoria.nombre}}</td>
-          <td>{{categoria.descripcion}}</td>
-          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCModificar" (click) = "asignarCat(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <th scope="row">{{categoria.id}}</th>
+            <td>{{categoria.nombre}}</td>
+            <td>{{categoria.descripcion}}</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCModificar" (click)="asignarCat(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
-            
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AceptarBorrar" (click) = "asignarCat(i)" ><i class="fa fa-trash" aria-hidden="true"></i>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AceptarBorrar" (click)="asignarCat(i)"><i class="fa fa-trash" aria-hidden="true"></i>
             </button></td>
         </tr>
-      </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <!-- Termina Componente Principal --> 
-  
-    <!-- Inicia El Modal Categorias -->
+<!-- Termina Componente Principal -->
 
-    <div class="modal fade" id="exampleModalC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+<!-- Inicia El Modal Categorias -->
+
+<div class="modal fade" id="exampleModalC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agregar Categoría</h5>
-              <button type="button" class="close " data-dismiss="modal" (click)="onClear()" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Categoría</h5>
+                <button type="button" class="close " data-dismiss="modal" (click)="onClear()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -78,182 +78,178 @@
 
                 <!-- Uso de NgModel con NgIf para la validacion de los campos -->
 
-              <form #formCategorias="ngForm" id="formCategorias" name="formCategorias">
-                <div class="form-group">
-                  <label for="recipient-name" class="form-control-label">Nombre:</label>
-                  <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
-                    <input type="text" #nombre="ngModel" [(ngModel)] = "categoria.nombre" name="nombre" class="form-control" placeholder="Nombre de la categoría" aria-label="Categoría" aria-describedby="basic-addon1" required minlength="4" maxlength="100" >
-                  </div>
-                  <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
-                    <span *ngIf="nombre.errors.required">
+                <form #formCategorias="ngForm" id="formCategorias" name="formCategorias">
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Nombre:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                            <input type="text" #nombre="ngModel" [(ngModel)]="categoria.nombre" name="nombre" class="form-control" placeholder="Nombre de la categoría" aria-label="Categoría" aria-describedby="basic-addon1" required minlength="4" maxlength="100">
+                        </div>
+                        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
+                            <span class="err" *ngIf="nombre.errors.required">
                          El nombre es requerido
                     </span>
-                    <span *ngIf="nombre.errors.minlength">
+                            <span class="err" *ngIf="nombre.errors.minlength">
                       El mínimo de caracteres para este campo es 4
                     </span>
-                    <p *ngIf="nombre.errors.pattern">
+                            <span class="err" *ngIf="nombre.errors.pattern">
                       No esta permitido los caracteres
-                    </p>
-                </div>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="form-control-label">Descripción:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
-                      <textarea #descripcion="ngModel" [(ngModel)] = "categoria.descripcion" name="descripcion" class="form-control" id="message-text" required minlength="10" maxlength="150"></textarea>
+                    </span>
+                        </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.dirty && !descripcion.valid">
-                        <span *ngIf="descripcion.errors.required">
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Descripción:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                            <textarea #descripcion="ngModel" [(ngModel)]="categoria.descripcion" name="descripcion" class="form-control" id="message-text" required minlength="10" maxlength="150"></textarea>
+                        </div>
+                        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.dirty && !descripcion.valid">
+                            <span class="err" *ngIf="descripcion.errors.required">
                              La descripción es requerida
                         </span>
-                        <span *ngIf="descripcion.errors.minlength">
+                            <span class="err" *ngIf="descripcion.errors.minlength">
                           El mínimo de caracteres para este campo es 10
                         </span>
-                        <p *ngIf="descripcion.errors.pattern">
+                            <span class="err" *ngIf="descripcion.errors.pattern">
                           No esta permitido los caracteres
-                        </p>
-                    </div>
-                  </div>
-                  <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
-                      Error la categoría ya existe, ingrese una categoria nueva.
+                        </span>
                         </div>
-              </form>
+                    </div>
+                    <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                        Error la categoría ya existe, ingrese una categoria nueva.
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
 
                 <!-- Uso de la validacion en el boton de agregar y metodo click que llama a un metodo en el TS -->
 
-              <button type="button" class="btn btn-secondary" data-dismiss="modal"(click)="onClear();" >Cerrar</button>
-              <button type="button" class="btn btn-primary" [disabled]="!formCategorias.form.valid" (click)="onSubmit();">Agregar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()">Cerrar</button>
+                <button type="button" class="btn btn-primary" [disabled]="!formCategorias.form.valid" (click)="onSubmit();">Agregar</button>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
-    <!--Termina El Modal Agregar Categorias -->
+<!--Termina El Modal Agregar Categorias -->
 
-    <!-- Inicia El Modal Modificar Categorias -->
+<!-- Inicia El Modal Modificar Categorias -->
 
-    <div class="modal fade" id="exampleModalCModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+<div class="modal fade" id="exampleModalCModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modificar Categoría</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Categoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
+            </div>
+            <div class="modal-body">
 
-              <!-- Uso de NgModel con NgIf para la validacion de los campos -->
+                <!-- Uso de NgModel con NgIf para la validacion de los campos -->
 
-            <form #formModCategorias="ngForm" id="formCategorias" name="formCategorias">
-              <div class="form-group">
-                <label for="recipient-name" class="form-control-label">Nombre:</label>
-                <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
-                  <input type="text" value="{{categoriaSeleccionada.nombre}}" id="nombremodificar" #nombremod="ngModel" [(ngModel)] = "categoriaSeleccionada.nombre" name="nombremod" class="form-control"
-                   placeholder="" aria-label="Categoría" aria-describedby="basic-addon1" required minlength="4" maxlength="100" >
-                </div>
-                <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombremod.touched && !nombremod.valid">
-                  <span *ngIf="nombremod.errors.required">
+                <form #formModCategorias="ngForm" id="formCategorias" name="formCategorias">
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Nombre:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                            <input type="text" value="{{categoriaSeleccionada.nombre}}" id="nombremodificar" #nombremod="ngModel" [(ngModel)]="categoriaSeleccionada.nombre" name="nombremod" class="form-control" placeholder="" aria-label="Categoría" aria-describedby="basic-addon1"
+                                required minlength="4" maxlength="100">
+                        </div>
+                        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombremod.touched && !nombremod.valid">
+                            <span *ngIf="nombremod.errors.required">
                        El nombre es requerido
                   </span>
-                  <span *ngIf="nombremod.errors.minlength">
+                            <span *ngIf="nombremod.errors.minlength">
                     El mínimo de caracteres para este campo es 4
                   </span>
-                  <p *ngIf="nombremod.errors.pattern">
-                    No esta permitido los caracteres
-                  </p>
-              </div>
-              </div>
-              <div class="form-group">
-                  <label for="recipient-name" class="form-control-label">Descripción:</label>
-                  <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
-                    <textarea id="descripcionmodificar" value="{{categoriaSeleccionada.descripcion}}" #descripcionmod="ngModel" [(ngModel)] = "categoriaSeleccionada.descripcion" name="descripcionmod" class="form-control" required minlength="10" maxlength="150">
+                            <p *ngIf="nombremod.errors.pattern">
+                                No esta permitido los caracteres
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Descripción:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                            <textarea id="descripcionmodificar" value="{{categoriaSeleccionada.descripcion}}" #descripcionmod="ngModel" [(ngModel)]="categoriaSeleccionada.descripcion" name="descripcionmod" class="form-control" required minlength="10" maxlength="150">
                     </textarea>
-                  </div>
-                  <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcionmod.touched && !descripcionmod.valid">
-                      <span *ngIf="descripcionmod.errors.required">
+                        </div>
+                        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcionmod.touched && !descripcionmod.valid">
+                            <span *ngIf="descripcionmod.errors.required">
                            La descripción es requerida
                       </span>
-                      <span *ngIf="descripcionmod.errors.minlength">
+                            <span *ngIf="descripcionmod.errors.minlength">
                         El mínimo de caracteres para este campo es 10
                       </span>
-                      <p *ngIf="descripcionmod.errors.pattern">
-                        No esta permitido los caracteres
-                      </p>
-                  </div>
-                </div>
-                <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
-                    Error la categoría ya existe, ingrese una categoria nueva.
-                      </div>
-            </form>
-          </div>
-          <div class="modal-footer">
+                            <p *ngIf="descripcionmod.errors.pattern">
+                                No esta permitido los caracteres
+                            </p>
+                        </div>
+                    </div>
+                    <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                        Error la categoría ya existe, ingrese una categoria nueva.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
 
-              <!-- Uso de la validacion en el boton de agregar y metodo click que llama a un metodo en el TS -->
+                <!-- Uso de la validacion en el boton de agregar y metodo click que llama a un metodo en el TS -->
 
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" [disabled]="!formModCategorias.form.valid" data-toggle="modal" data-target="#AceptarModificar">Modificar</button>
-          </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" [disabled]="!formModCategorias.form.valid" data-toggle="modal" data-target="#AceptarModificar">Modificar</button>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Termina El Modal Modificar Categorias -->
+<!-- Termina El Modal Modificar Categorias -->
 
-    <!-- Inicia El Modal de Aceptar Modificar Categorias -->
+<!-- Inicia El Modal de Aceptar Modificar Categorias -->
 
-    <div class="modal" id="AceptarModificar" tabindex="-2">
-      <div class="modal-dialog" role="document">
+<div class="modal" id="AceptarModificar" tabindex="-2">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Confirmar Cambios a Categoria</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Cambios a Categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-            <p>¿Esta seguro que desea guardar los cambios?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="modificar();closeAllModals()" data-dismiss="modal">Guardar Cambios</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea guardar los cambios?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="modificar();closeAllModals();onClear();" data-dismiss="modal">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Termina El Modal de Aceptar Modificar Categorias -->
+<!-- Termina El Modal de Aceptar Modificar Categorias -->
 
-      <!-- Inicia El Modal de Aceptar Borrar Categorias -->
-      
+<!-- Inicia El Modal de Aceptar Borrar Categorias -->
 
-      <div class="modal fade" id="AceptarBorrar" tabindex="-2">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+
+<div class="modal fade" id="AceptarBorrar" tabindex="-2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Confirmar Borrar Categoria</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Confirmar Borrar Categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>¿Esta seguro que desea borrar la categoria "{{categoriaSeleccionada.nombre}}" ?</p>
+                <p>¿Esta seguro que desea borrar la categoria "{{categoriaSeleccionada.nombre}}" ?</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="eliminar();closeAllModals()" data-dismiss="modal">Borrar Categoria</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="eliminar();closeAllModals();onClear();" data-dismiss="modal">Borrar Categoria</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
-          </div>
         </div>
-      </div>
-  
-      <!-- Termina El Modal de Aceptar Borrar Categorias -->
+    </div>
+</div>
 
-
-  
-  
+<!-- Termina El Modal de Aceptar Borrar Categorias -->

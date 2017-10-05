@@ -98,9 +98,34 @@ export class CategoriasComponent implements OnInit {
     return Object.assign({}, obj);
 }
 onClear() {
-  $('#exampleModalC').on('hidden.bs.modal', function () {
-    $('.modal-body').find('textarea,input').val('');
-});
+  $('#exampleModalC').on('hidden.bs.modal', function() {
+    $('.modal-body')
+      .find('textarea,input')
+      .val('');
+      this.categoria = new Categoria(0 , '', '');
+      $('#deletesuccess').delay(3000).fadeIn();
+      this.status = 'success';
+
+    const mensajes = document.getElementsByClassName('err');
+    for (let i = 0; i < mensajes.length; i++) {
+      mensajes[i].innerHTML = '';
+    }
+  });
+  $('#exampleModalCModificar').on('hidden.bs.modal', function() {
+    $('#deletesuccess').delay(3000).fadeIn();
+    this.status = 'success2';
+
+  });
+  $('#AceptarModificar').on('hidden.bs.modal', function() {
+    $('#deletesuccess').delay(3000).fadeIn();
+    this.status = 'success2';
+
+  });
+  $('#AceptarBorrar').on('hidden.bs.modal', function() {
+    $('#deletesuccess').delay(3000).fadeIn();
+    this.status = 'success3';
+
+  });
 }
 /**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
 modificar() {
@@ -178,4 +203,8 @@ eliminar() {
 
 }
 
+ocultarDivs() {
+    $('#deletesuccess').delay(3000).fadeIn();
+
+}
 }

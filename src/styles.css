@@ -4,6 +4,7 @@
     background: #95bcf2;
     min-height: 92vh;
     max-height: 100%;
+    padding: 0px;
 }
 
 li a {

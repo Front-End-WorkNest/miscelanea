@@ -3,9 +3,14 @@
     <h3>Ventas</h3>
 </div>
 
-<div class="container" *ngIf="mostrandoError">
-    <div class="alert alert-danger">
+<div class="container">
+    <div class="alert alert-danger" *ngIf="status=='error'">
         <span>{{errMsg}}</span>
+    </div>
+    <div class="alert alert-success" *ngIf="status=='success'">
+        <span>{{errMsg}}</span>
+    </div>
+    <div *ngIf="status==''">
     </div>
 </div>
 
@@ -18,7 +23,7 @@
         <div class="col">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-keyboard-o" aria-hidden="true"></i></span>
-                <input type="text" [(ngModel)]="producto.codigoBarras" (keyup)="onKey($event)">
+                <input type="text" minlength="13" maxlength="13" [(ngModel)]="producto.codigoBarras" (keyup)="onKey($event)">
             </div>
         </div>
 
@@ -78,7 +83,8 @@
                     <!--td><input type="text" value='{{prod[1]}}' readonly></td-->
                     <td>
                         <!-- <input type="button" value="..." class="btn btn-primary" (click)="modificarCantidad(i)"> -->
-                        <input type="button" value="-" class="btn btn-danger" (click)="removeProducto(i)">
+                        <button type="button" class="btn btn-danger" (click)="removeProducto(i)"><i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
                     </td>
                 </tr>
             </table>
@@ -90,10 +96,17 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
-            <h4 class="text-danger">Total:$ {{total}}</h4>
+            <h4 class="text-danger">Total:$</h4>
+            <h4 id="total">{{total}}</h4>
         </div>
-        <div class="col">
-            <h4>Cambio:$ {{cambio}} </h4>
+        <div class="col-4">
+            <h4>Recibido:$ </h4>
+            <h4 id="recibido">{{pago}} </h4>
+        </div>
+        <div class="col-4">
+            <h4>Cambio:$
+                <h4 id="cambio">{{cambio}}</h4>
+            </h4>
         </div>
     </div>
 </div>
@@ -108,7 +121,7 @@
               <i class="fa fa-money" aria-hidden="true"></i>
               Cobrar
             </button>
-            <button class="btn btn-success" (click)="onSubmit()" [disabled]="!ventaValida">
+            <button class="btn btn-success" (click)="onSubmit()" onclick="gentabla()" [disabled]="!ventaValida">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Finalizar venta
               </button>
@@ -123,7 +136,7 @@
             <i class="fa fa-trash" aria-hidden="true"></i>
               Eliminar
             </button>
-            <button class="btn btn-danger" [disabled]="listaVacia" (click)="cancelarVenta()"><!--data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()"-->
+            <button class="btn btn-danger" [disabled]="listaVacia" data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()"><!--data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()"-->
                 <i class="fa fa-times" aria-hidden="true"></i>
               Cancelar
               </button>
@@ -133,10 +146,6 @@
 <!--TERMINA BOTONES FOOTER-->
 
 <br>
-
-<!--div class="container">
-        <input type="button" value="Guardar" class="btn btn-primary" (click)="onSubmit()">
-      </div-->
 
 <!--EDITAR-->
 <div class="container">
@@ -152,7 +161,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Venta</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrar()">
                       <span aria-hidden="true">&times;</span>
                     </button>
             </div>
@@ -183,10 +192,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-toggle="modalCancel" data-target="#exampleModal2" (click)="cancelarModal()">
+                <button type="button" class="btn btn-danger" (click)="cerrar()">
                           Cancelar
                       </button>
-                <button type="button" class="btn btn-success" [disabled]="!ventaValida" (click)="cerrar()">Aceptar</button>
+                <button type="button" class="btn btn-success" [disabled]="!ventaValida" (click)="aceptar()">Aceptar</button>
             </div>
         </div>
     </div>
@@ -208,13 +217,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="cerrar()">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="cerrar();cancelarVenta()">Aceptar</button>
             </div>
         </div>
-    </div>
-
-
-    <div class="container">
-        <button onclick="gentabla()" class="btn btn-success"> Implimir Recibo</button>
     </div>
 </div>
