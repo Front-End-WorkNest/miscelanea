@@ -3,8 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
-import { GLOBAL } from './global';
-import { Categoria } from '../models/categoria';
+import { GLOBAL } from '../../../services/global';
+import { Categoria } from '../../../models/categoria';
 
 @Injectable()
 export class CategoriasService {
@@ -41,7 +41,7 @@ export class CategoriasService {
 
       eliminarCategoria(categoriaa) {
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.delete('http://192.168.0.29:8080/categoria/eliminar/' + categoriaa, {headers: headers})
+        return this._http.delete(this.url+'categoria/eliminar/' + categoriaa, {headers: headers})
           .map((res: Response) => res.json());
       }
 }

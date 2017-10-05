@@ -150,7 +150,8 @@ export class ProductosComponent implements OnInit {
   asignarCat(i) {
     //this.productoSeleccionado = new Categoria(0 , '', '');
     this.productoSeleccionado = this.simpleClone(this.productos[i]);
-    console.log('htyrrrye' +this.productoSeleccionado);
+    console.log("aquiiiiiiiii");
+    console.log(this.productoSeleccionado);
   }
   onSubmitMod() {
   }
@@ -202,7 +203,13 @@ export class ProductosComponent implements OnInit {
         error => {
           if (error.status && error.status === 404) {
             this.s = 'errorNo';
-          }else {
+          }
+          
+
+          else {
+            if (error.status && error.status===500){
+              this.s="errorV"
+            }else{
             console.log(error);
             this.s = 'eliminado';
             
@@ -219,6 +226,7 @@ export class ProductosComponent implements OnInit {
               }
             );
           }
+          }
         
         }
         
@@ -228,6 +236,7 @@ export class ProductosComponent implements OnInit {
   /**Función para sacar el ID  de producto*/
   guardarValor(idModificar) {
     this.idModificar = idModificar;
+
   }
 
   obtenerIdCategoria() {

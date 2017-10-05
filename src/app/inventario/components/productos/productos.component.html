@@ -28,7 +28,9 @@
         El producto ha sido modificado con éxito!
     </div>
     <!--/success-->
-    <!--MENSAJE DE ELIMINADO SUCCESS-->
+    <div *ngIf="s == 'errorV'" class="alert alert-danger mt-3" role="alert">
+        El producto no ha sido eliminado porque ya existe una venta con él!
+    </div>
     <div *ngIf="s == 'eliminado'" class="alert alert-success mt-3" role="alert">
         El producto ha sido eliminado con éxito!
     </div>
@@ -268,12 +270,13 @@
                     <div class="input-group mb-2 mb-sm-0 my-0">
                         <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
                         <input type="text" value="{{productoSeleccionado.codigoBarras}}" class="form-inline" name="codigoBarras" class="form-control" placeholder="Código de Barras" minlength="13" maxlength="13" #codigoBarras="ngModel" [(ngModel)]="productoSeleccionado.codigoBarras"
-                            required pattern="^[0-9]+$" disabled/>
+                            disabled/>
                     </div>
                     <!--VALIDACIÓN DE CÓDIGO DE BARRAS-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="codigoBarras.touched && !codigoBarras.valid">
                         <span *ngIf="codigoBarras.errors.required">
                          El código de barras es requerido.
+                         <div class="alert()"></div>
                     </span>
                         <span *ngIf="codigoBarras.errors.minlength">
                       El código de barras deberá de ser de 13 caracteres.
@@ -299,6 +302,7 @@
                         <a>{{changecolor()}}</a>
                         <span *ngIf="nombre.errors.required">
                          El nombre es requerido
+                         <div ></div>
                     </span>
                         <span *ngIf="nombre.errors.minlength">
                       El tamaño mínimo del nombre es de 2 caracteres
@@ -392,7 +396,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
 
-                        <select class="form-control" id="exampleFormControlSelect2" name="categoria" [(ngModel)]="cate" placeholder="categorias" type="text" minlength="1" maxlength="10" #categoria="ngModel" [(ngModel)]="productoSeleccionado.categoria" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                        <select class="form-control" id="exampleFormControlSelect2" name="categoria" [(ngModel)]="cate" type="text" #categoria="ngModel" required> <!--(change)="sacarCategoria($event.target.value)"-->
                         <option selected>{{productoSeleccionado.categoria}}</option>
                         <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
                       </select>
@@ -400,7 +404,7 @@
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" (click)="cerrarModalConfirm(); AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!formEditPro.form.valid" (click)="cerrarModalConfirm(); AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>
