@@ -1,7 +1,7 @@
 <div class="mt-5 mb-5">
     <div class="row">
         <div class="col-9">
-            <button type="button" data-toggle="modal" data-target="#exampleModalP" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
+            <button type="button" (click)="onClear()" data-toggle="modal" data-target="#exampleModalP" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo
         </button>
             <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
@@ -18,16 +18,20 @@
         </div>
     </div>
     <!--MENSAJE DE SUCCESS-->
-    <div *ngIf="status=='bien'" class="alert alert-success mt-3" role="alert">
+    <div *ngIf="s=='bien'" class="alert alert-success mt-3" role="alert">
         El producto ha sido registrado!
     </div>
     <!--/success-->
 
     <!-- MENSAJE DE SUCCESS-->
-    <div *ngIf="statusM=='successM'" class="alert alert-success mt-3" role="alert">
+    <div *ngIf="s=='successM'" class="alert alert-success mt-3" role="alert">
         El producto ha sido modificado con éxito!
     </div>
     <!--/success-->
+    <!--MENSAJE DE ELIMINADO SUCCESS-->
+    <div *ngIf="s == 'eliminado'" class="alert alert-success mt-3" role="alert">
+        El producto ha sido eliminado con éxito!
+    </div>
 </div>
 <!--TABLA PRINCIPAL-->
 <table class="table table-striped">
@@ -53,9 +57,11 @@
             <td>{{producto.cantidad}}</td>
             <td>{{producto.precioVenta}}</td>
             <td>{{producto.precioCompra}}</td>
+            <!--BOTÓN DE EDITAR PRODUCTO-->
             <td><button type="button" data-toggle="modal" data-target="#modaleditPro" class="btn btn-primary" (click)="asignarCat(i); guardarValor(producto.codigoBarras);"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
-                <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                <!--BOTÓN DE ELIMINAR PRODUCTO-->
+                <button type="button" data-toggle="modal" data-target="#AcepBorrarPro" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" (click)= "asignarCat(i)"></i>
             </button></td>
 
         </tr>
@@ -68,7 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{title1}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClear();">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClear()">
               <span aria-hidden="true">&times;</span>
             </button>
             </div>
@@ -76,7 +82,7 @@
             <div class="modal-body">
                 <form #formRegistroPro="ngForm" (ngSubmit)="onSubmit()">
                     <!--MENSAJE DE ERROR!!!-->
-                    <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                    <div *ngIf="s=='error'" class="alert alert-danger modal1 card card-block" role="alert">
                         Error: Algo salió mal, el producto no ha sido agregado.
                     </div>
                     <!--TERMINA MENSAJE DE ERROR!!!-->
@@ -86,18 +92,18 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0 my-0">
                         <i class="fa fa-barcode input-group-addon" aria-hidden="true"></i>
-                        <input class="form-inline" type="text" name="codigoBarras" class="form-control" placeholder="Código de Barras" minlength="13" maxlength="13" #c_barras="ngModel" [(ngModel)]="producto.codigoBarras" required pattern="^[0-9]+$" />
+                        <input class="form-inline" id="cod" type="text" name="codigoBarras" class="form-control" placeholder="Código de Barras" minlength="13" maxlength="13" #c_barras="ngModel" [(ngModel)]="producto.codigoBarras" required pattern="^[0-9]+$" />
                     </div>
                     <!--VALIDACIÓN DE CÓDIGO DE BARRAS-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="c_barras.touched && !c_barras.valid">
-                        <span *ngIf="c_barras.errors.required">
+                        <span class="err" *ngIf="c_barras.errors.required">
                          El código de barras es requerido.
                     </span>
-                        <span *ngIf="c_barras.errors.minlength">
+                        <span class="err" *ngIf="c_barras.errors.minlength">
                       El código de barras deberá de ser de 13 caracteres.
                     </span>
                         <br>
-                        <span *ngIf="c_barras.errors.pattern">
+                        <span class="err" *ngIf="c_barras.errors.pattern">
                             - Solo está permitido valores del 0 - 9.
                     </span>
                     </div>
@@ -116,10 +122,10 @@
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre_prod.touched && !nombre_prod.valid">
 
 
-                        <span *ngIf="nombre_prod.errors.required">
+                        <span class="err" *ngIf="nombre_prod.errors.required">
                          El nombre es requerido
                     </span>
-                        <span *ngIf="nombre_prod.errors.minlength">
+                        <span class="err" *ngIf="nombre_prod.errors.minlength">
                       El tamaño mínimo del nombre es de 2 caracteres
                     </span>
                     </div>
@@ -136,7 +142,7 @@
                     </div>
                     <!--VALIDACIÓN DE DESCRIPCIÓN-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion_prod.touched && !descripcion_prod.valid">
-                        <span *ngIf="descripcion_prod.errors.required">
+                        <span class="err" *ngIf="descripcion_prod.errors.required">
                                 La descripción del producto, es requerida.
                         </span>
                     </div>
@@ -153,10 +159,10 @@
                     </div>
                     <!--VALIDACIÓN DE cantidaddos-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidaddos.touched && !cantidaddos.valid">
-                        <span *ngIf="cantidaddos.errors.required">
+                        <span class="err" *ngIf="cantidaddos.errors.required">
                                      Este campo es requerido.
                                 </span>
-                        <span *ngIf="cantidaddos.errors.pattern">
+                        <span class="err" *ngIf="cantidaddos.errors.pattern">
                                     Sólo puedes ingresar números enteros.
                         </span>
                     </div>
@@ -172,10 +178,10 @@
                     </div>
                     <!--VALIDACIÓN DE PRECIO COMPRA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_compra.touched && !precio_compra.valid">
-                        <span *ngIf="precio_compra.errors.required">
+                        <span class="err" *ngIf="precio_compra.errors.required">
                                      El precio de compra es requerido
                                 </span>
-                        <span *ngIf="precio_compra.errors.pattern">
+                        <span class="err" *ngIf="precio_compra.errors.pattern">
                                     El formato de precio de COMPRA deberá tener el siguiente formato: 99.99
                                 </span>
                     </div>
@@ -192,10 +198,10 @@
                     </div>
                     <!--VALIDACIÓN DE PRECIO VENTA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precio_venta.touched && !precio_venta.valid">
-                        <span *ngIf="precio_venta.errors.required">
+                        <span class="err" *ngIf="precio_venta.errors.required">
                                          El precio de venta es requerido
                                     </span>
-                        <span *ngIf="precio_venta.errors.pattern">
+                        <span class="err" *ngIf="precio_venta.errors.pattern">
                                         El formato de VENTA de compra deberá tener el siguiente formato: 99.99
                                     </span>
                     </div>
@@ -248,7 +254,7 @@
             <div class="modal-body">
                 <form #formEditPro="ngForm" id="formCategorias" name="formCategorias">
                     <!--MENSAJE DE ERROR!!!-->
-                    <div *ngIf="status=='error'" class="alert alert-danger modal1 card card-block" role="alert">
+                    <div *ngIf="s=='error'" class="alert alert-danger modal1 card card-block" role="alert">
                         Error: Algo salió mal, el producto no ha sido agregado.
                     </div>
                     <!--TERMINA MENSAJE DE ERROR!!!-->
@@ -321,7 +327,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
                         <i class="fa fa-plus input-group-addon" aria-hidden="true"></i>
-                        <input value="{{productoSeleccionado.cantidad}}" type="text" value="null" name="cantidad" class="form-control" placeholder="500" #cantidad="ngModel" [(ngModel)]="productoSeleccionado.cantidad" required pattern="[0-9]+" />
+                        <input value="{{productoSeleccionado.cantidad}}" type="text" value="null" name="cantidad" class="form-control" placeholder="500" #cantidad="ngModel" [(ngModel)]="productoSeleccionado.cantidad" required pattern="[1-9][0-9]*$" />
                     </div>
                     <!--VALIDACIÓN DE CANTIDAD-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.touched && !cantidad.valid">
@@ -340,7 +346,8 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-1  my-0">
                         <i class="fa fa-usd input-group-addon" aria-hidden="true"></i>
-                        <input value="{{productoSeleccionado.precioCompra}}" type="text" name="precioCompra" class="form-control" placeholder="29.99" step=0.01 #precioCompra="ngModel" [(ngModel)]="productoSeleccionado.precioCompra" required pattern="[0-9]+.([0-9][0-9])$" />
+                        <input value="{{productoSeleccionado.precioCompra}}" type="text" name="precioCompra" class="form-control" placeholder="29.99" step=0.01 #precioCompra="ngModel" [(ngModel)]="productoSeleccionado.precioCompra" required pattern="[1-9][0-9]*.([0-9][0-9])$"
+                        />
                     </div>
                     <!--VALIDACIÓN DE PRECIO COMPRA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precioCompra.touched && !precioCompra.valid">
@@ -360,7 +367,7 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0 my-0">
                         <div class="input-group-addon fa fa-usd"></div>
-                        <input value="{{productoSeleccionado.precioVenta}}" type="text" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precioVenta="ngModel" [(ngModel)]="productoSeleccionado.precioVenta" required pattern="[0-9]+.([0-9][0-9])$" />
+                        <input value="{{productoSeleccionado.precioVenta}}" type="text" name="precioVenta" class="form-control" placeholder="29.99" step=0.01 #precioVenta="ngModel" [(ngModel)]="productoSeleccionado.precioVenta" required pattern="[1-9][0-9]*.([0-9][0-9])$" />
                     </div>
                     <!--VALIDACIÓN DE PRECIO VENTA-->
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="precioVenta.touched && !precioVenta.valid">
@@ -425,3 +432,27 @@
         </div>
     </div>
 </div>
+<!-- Inicia El Modal de Aceptar Borrar productos -->
+
+
+<div class="modal fade" id="AcepBorrarPro" tabindex="-2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Borrar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea borrar el producto "{{productoSeleccionado.nombre}}" ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="eliminar(); cerrarModalConfirm()" data-dismiss="modal">Borrar producto</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Termina El Modal de Aceptar Borrar Categorias -->

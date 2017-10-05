@@ -109,6 +109,7 @@ onClear() {
     const mensajes = document.getElementsByClassName('err');
     for (let i = 0; i < mensajes.length; i++) {
       mensajes[i].innerHTML = '';
+      window.location.reload();
     }
   });
   $('#exampleModalCModificar').on('hidden.bs.modal', function() {
