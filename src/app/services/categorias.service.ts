@@ -35,13 +35,13 @@ export class CategoriasService {
         const params = JSON.stringify(categoriaa);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.put('http://192.168.0.42:8080/categoria/modificar', params, {headers: headers})
+        return this._http.put(this.url+'categoria/modificar', params, {headers: headers})
           .map((res: Response) => res.json());
       }
 
       eliminarCategoria(categoriaa) {
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        return this._http.delete('http://192.168.0.42:8080/categoria/borrar/' + categoriaa, {headers: headers})
+        return this._http.delete('http://192.168.0.29:8080/categoria/eliminar/' + categoriaa, {headers: headers})
           .map((res: Response) => res.json());
       }
 }
