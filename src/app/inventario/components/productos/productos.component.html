@@ -4,7 +4,7 @@
             <button type="button" (click)="onClear()" data-toggle="modal" data-target="#exampleModalP" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo
         </button>
-            <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (ngClick)="refresh()"></i>
+            <button type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" (click)="refresh()"></i>
             Actualizar</button>
         </div>
         <div class="col-3 d-flex flex-row-reverse">
@@ -63,7 +63,7 @@
             <td>{{producto.precioVenta}}</td>
             <td>{{producto.precioCompra}}</td>
             <!--BOTÓN DE EDITAR PRODUCTO-->
-            <td><button type="button" data-toggle="modal" data-target="#modaleditPro" class="btn btn-primary" (click)="asignarCat(i); guardarValor(producto.codigoBarras);"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <td><button type="button" data-toggle="modal" data-target="#modaleditPro" class="btn btn-primary" (click)=" asignarCat(i); obtenerIdCategoria(productoSeleccionado.categoria); guardarValor(producto.codigoBarras);"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
                 <!--BOTÓN DE ELIMINAR PRODUCTO-->
                 <button type="button" data-toggle="modal" data-target="#AcepBorrarPro" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" (click)= "asignarCat(i)"></i>
@@ -396,15 +396,22 @@
                     </p>
                     <div class="input-group mb-2 mb-sm-0  my-0">
 
-                        <select class="form-control" id="exampleFormControlSelect2" name="categoria" [(ngModel)]="cate" type="text" #categoria="ngModel" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                        <select class="form-control" id="exampleFormControlSelect2" name="categoria" type="text" #categoria="ngModel" [(ngModel)]="cate"  required> <!--(change)="sacarCategoria($event.target.value)"-->
                         <option selected>{{productoSeleccionado.categoria}}</option>
                         <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
                       </select>
+                      
 
+                    </div>
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="!categoria.valid">
+                        <span *ngIf="categoria.errors.required">
+                                     Cambia tu categoría
+                                </span>
+                        
                     </div>
                     <fieldset class="form-group">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" [disabled]="!formEditPro.form.valid" (click)="cerrarModalConfirm(); AceptarUpdateProducto(); obtenerIdCategoria();" data-target="#modalAceptUpPro">Guardar</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!formEditPro.form.valid" (click)="cerrarModalConfirm(); AceptarUpdateProducto(); obtenerIdCategoria(productoSeleccionado.categoria);" data-target="#modalAceptUpPro">Guardar</button>
                             <!--[disabled]="!formRegistro.form.valid"-->
                         </div>
                     </fieldset>

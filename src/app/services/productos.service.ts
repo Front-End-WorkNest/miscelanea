@@ -14,7 +14,7 @@ export class ProductoService {
     token;
     constructor(private _http: Http) {
         this.url = GLOBAL.url;
-    } 
+    }
       agregarProductos(productoo) {
         const params = JSON.stringify(productoo);
         console.log(params);
@@ -27,7 +27,10 @@ export class ProductoService {
                          .map((res: Response) => res.json());
       }
 
-      modificarProducto(productoo){
+      modificarProducto(productoo, cate) {
+        /*if (productoo.categoria !== cate) {
+            productoo.categoria = cate;
+        }*/
         const params = JSON.stringify(productoo);
         console.log(params);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});

@@ -102,32 +102,35 @@ export class ProductosComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    //console.log("El arreglo de productos enviados es: ");
-    //console.log(JSON.stringify(this.producto));
 
-    //this.productos.push(this.producto);
-    //console.log(this.productos);
+    // console.log("El arreglo de productos enviados es: ");
+    // console.log(JSON.stringify(this.producto));
 
-    //ESTO ENVIÁ LOS ADTOS DEL FORMULARIO AL SERVIDOR Y EVALUA SI ESTE LO HA RECIBIDO O NO
+    // this.productos.push(this.producto);
+    // console.log(this.productos);
+
+    // ESTO ENVIÁ LOS ADTOS DEL FORMULARIO AL SERVIDOR Y EVALUA SI ESTE LO HA RECIBIDO O NO
+
+    this.obtenerNombreCategoria(this.productoSeleccionado.categoria);
+
     this._productosService.agregarProductos(this.producto).subscribe(
       response => {
         console.log("ELEMENTOS A GUARDAR.....");
         console.log(JSON.stringify(response));
-        //if(response.codigoBarras==this.productos[1])
+        // if(response.codigoBarras==this.productos[1])
 
-        //console.log("PRODUCTO REPETIDO MEN!");
+        // console.log("PRODUCTO REPETIDO MEN!");
 
-        //else{
+        // else{
         console.log("Guardando EN TABLA DE MANERA LOCAL...");
         console.log(JSON.stringify(response));
-        //this.productosform = response; //Agrega productos a la tabla
+        // this.productosform = response; //Agrega productos a la tabla
         this.s = "bien";
-        //Almacena productos
+        // Almacena productos
         this.productos.push(this.producto);
         console.log(this.productos);
-        /**Cerramos el modal despúes de que se insertó correctamente... */
-        $("#exampleModalP").modal("hide");
+        /** Cerramos el modal despúes de que se insertó correctamente... */
+        $('#exampleModalP').modal("hide");
         this.productos = null;
         this._productosService.getProductos().subscribe(
           result2 => {
@@ -152,6 +155,7 @@ export class ProductosComponent implements OnInit {
     this.productoSeleccionado = this.simpleClone(this.productos[i]);
     console.log("aquiiiiiiiii");
     console.log(this.productoSeleccionado);
+    this.cate = this.productoSeleccionado.nombre;
   }
   onSubmitMod() {
   }
@@ -160,9 +164,12 @@ export class ProductosComponent implements OnInit {
   }
   /**FUNCIÓN PARA MODIFICAR EL PRODUCTO DE LA TABLA: SERVICIO: modificarProducto */
   modificar() {
-    //console.log("Producto a modificar: " + this.productoSeleccionado);
+    console.log("Producto a modificar: ============================== " + JSON.stringify(this.productoSeleccionado));
+   
+    this.obtenerIdCategoria(this.cate);
+    
     this._productosService
-      .modificarProducto(this.productoSeleccionado)
+      .modificarProducto(this.productoSeleccionado, this.cate)
       .subscribe(
         result => {
           this.s = "successM";
@@ -174,7 +181,7 @@ export class ProductosComponent implements OnInit {
             result2 => {
               console.log("Productos cargados");
               this.productos = result2;
-              console.log(JSON.stringify(result2));
+              
             },
             error => {
               console.log(error);
@@ -239,14 +246,25 @@ export class ProductosComponent implements OnInit {
 
   }
 
-  obtenerIdCategoria() {
+  obtenerIdCategoria(catee) {
+    this.cate = catee;
     for (let cat of this.categorias) {
       if (cat.nombre === this.cate) {
         this.productoSeleccionado.categoria = cat.id;
-        //console.log("holi");
+        // console.log("holi");
         console.log(cat.id);
 
         console.log(this.productoSeleccionado);
+      } else {
+      }
+    }
+  }
+
+  obtenerNombreCategoria(cate) {
+    for (let cat of this.categorias) {
+      if (cat.id === cate) {
+        this.productoSeleccionado.categoria = cat.nombre;
+        console.log(cat.nombre);
       } else {
       }
     }
